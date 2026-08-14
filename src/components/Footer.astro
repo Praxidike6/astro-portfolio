@@ -1,0 +1,59 @@
+<footer class='footer'>
+  <div class='footer-inner'>
+    <p>
+      © {new Date().getFullYear()} Stuart McDonnell
+    </p>
+
+    <p>Built with Astro</p>
+
+    <a
+      href='#top'
+      class='back-to-top'>
+      Back to top ↑
+    </a>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding: 30px var(--page-padding) 40px;
+
+    border-top: 1px solid rgb(91 206 250 / 10%);
+  }
+
+  .footer-inner {
+    max-width: var(--content-width);
+    margin: 0 auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .footer p,
+  .back-to-top {
+    margin: 0;
+
+    color: #687585;
+
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+  }
+
+  .back-to-top {
+    transition: color 0.25s ease;
+  }
+
+  .back-to-top:hover {
+    color: var(--color-cyan);
+  }
+
+  @media (max-width: 600px) {
+    .footer-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+    }
+  }
+</style>
