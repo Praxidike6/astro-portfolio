@@ -1,33 +1,37 @@
 <div
-  id='orb'
-  class='orb'
-  aria-hidden='true'>
-  <div class='orb-glow'></div>
-
+  id='orb-scene'
+  class='orb-scene'>
   <div
-    id='orb-core'
-    class='orb-core'>
-    <div class='core-light'></div>
-  </div>
+    id='orb'
+    class='orb'
+    aria-hidden='true'>
+    <div class='orb-glow'></div>
 
-  <div
-    id='particle-field'
-    class='orb-particles'>
-  </div>
-
-  <div
-    id='ring-one-motion'
-    class='orb-ring-motion'>
-    <div class='orb-ring-wrapper ring-one-wrapper'>
-      <div class='orb-ring'></div>
+    <div
+      id='orb-core'
+      class='orb-core'>
+      <div class='core-light'></div>
     </div>
-  </div>
 
-  <div
-    id='ring-two-motion'
-    class='orb-ring-motion'>
-    <div class='orb-ring-wrapper ring-two-wrapper'>
-      <div class='orb-ring'></div>
+    <div
+      id='particle-field'
+      class='orb-particles'>
+    </div>
+
+    <div
+      id='ring-one-motion'
+      class='orb-ring-motion'>
+      <div class='orb-ring-wrapper ring-one-wrapper'>
+        <div class='orb-ring'></div>
+      </div>
+    </div>
+
+    <div
+      id='ring-two-motion'
+      class='orb-ring-motion'>
+      <div class='orb-ring-wrapper ring-two-wrapper'>
+        <div class='orb-ring'></div>
+      </div>
     </div>
   </div>
 
@@ -42,7 +46,7 @@
       place-items: center;
 
       transform-style: preserve-3d;
-      perspective: 800px;
+      will-change: transform;
     }
 
     /* --------------------------------
@@ -120,6 +124,24 @@
     /* --------------------------------
        Particles
     -------------------------------- */
+
+    .orb-scene {
+      position: relative;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      perspective: 1200px;
+
+      transform-style: preserve-3d;
+
+      touch-action: none;
+    }
+
+    .orb {
+      will-change: transform;
+    }
 
     :global(.orb-particles) {
       position: absolute;
@@ -390,5 +412,51 @@
     }
 
     requestAnimationFrame(animateParticles);
+
+    /* --------------------------------
+   Mouse interaction
+-------------------------------- */
+
+    const orbScene = document.querySelector('#orb-scene');
+    const orb = document.querySelector('#orb');
+
+    let targetRotateX = 0;
+    let targetRotateY = 0;
+
+    let currentRotateX = 0;
+    let currentRotateY = 0;
+
+    if (orbScene && orb) {
+      orbScene.addEventListener('pointermove', (event) => {
+        const rect = orbScene.getBoundingClientRect();
+
+        const x = (event.clientX - rect.left) / rect.width;
+
+        const y = (event.clientY - rect.top) / rect.height;
+
+        targetRotateY = (x - 0.5) * 16;
+        targetRotateX = -(y - 0.5) * 16;
+      });
+
+      orbScene.addEventListener('pointerleave', () => {
+        targetRotateX = 0;
+        targetRotateY = 0;
+      });
+
+      function animateOrbTilt() {
+        currentRotateX += (targetRotateX - currentRotateX) * 0.08;
+
+        currentRotateY += (targetRotateY - currentRotateY) * 0.08;
+
+        orb.style.transform = `
+        rotateX(${currentRotateX}deg)
+        rotateY(${currentRotateY}deg)
+      `;
+
+        requestAnimationFrame(animateOrbTilt);
+      }
+
+      animateOrbTilt();
+    }
   </script>
 </div>

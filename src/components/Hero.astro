@@ -4,19 +4,21 @@ import Orb from './Orb.astro';
 
 <section class='hero'>
   <div class='hero-content'>
-    <p class='eyebrow'>WEB DEVELOPER · DESIGNER · TECHNOLOGIST</p>
+    <p class='eyebrow hero-reveal hero-reveal-1'>
+      WEB DEVELOPER · DESIGNER · TECHNOLOGIST
+    </p>
 
     <h1>
-      Stuart<br />
-      McDonnell
+      <span class='first-name hero-reveal hero-reveal-2'>Stuart</span>
+      <span class='last-name hero-reveal hero-reveal-3'>McDonnell</span>
     </h1>
 
-    <p class='intro'>
+    <p class='intro hero-reveal hero-reveal-4'>
       I design and build modern web experiences combining technology, creativity
       and thoughtful user experience.
     </p>
 
-    <div class='hero-actions'>
+    <div class='hero-actions hero-reveal hero-reveal-5'>
       <a href='#work'>View my work</a>
       <a href='#contact'>Get in touch</a>
     </div>
@@ -38,31 +40,83 @@ import Orb from './Orb.astro';
     grid-template-columns: 1fr 1fr;
     align-items: center;
     gap: 60px;
+    position: relative;
   }
 
+  .hero-content {
+    position: relative;
+    z-index: 20;
+  }
+
+  .hero-orb {
+    position: relative;
+    z-index: 10;
+  }
+  /* --------------------------------
+     Eyebrow
+  -------------------------------- */
+
   .eyebrow {
+    margin: 0 0 25px;
+
     color: var(--color-cyan);
+
     font-size: 0.75rem;
     letter-spacing: 0.15em;
     font-weight: 700;
   }
 
+  /* --------------------------------
+     Name
+  -------------------------------- */
+
   h1 {
-    margin: 20px 0;
+    margin: 0;
+
+    display: flex;
+    flex-direction: column;
 
     font-size: clamp(4rem, 9vw, 8rem);
-    line-height: 0.85;
+    line-height: 0.82;
     letter-spacing: -0.06em;
   }
 
+  .first-name {
+    font-weight: 400;
+  }
+
+  .last-name {
+    font-weight: 700;
+
+    background: linear-gradient(
+      135deg,
+      #ffffff 0%,
+      var(--color-cyan) 55%,
+      var(--color-blue) 100%
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* --------------------------------
+     Introduction
+  -------------------------------- */
+
   .intro {
     max-width: 550px;
+    margin: 35px 0 0;
 
     color: #9ba7b5;
 
     font-size: 1.1rem;
     line-height: 1.8;
   }
+
+  /* --------------------------------
+     Actions
+  -------------------------------- */
 
   .hero-actions {
     display: flex;
@@ -71,6 +125,9 @@ import Orb from './Orb.astro';
   }
 
   .hero-actions a {
+    position: relative;
+    overflow: hidden;
+
     padding: 12px 20px;
 
     border: 1px solid var(--color-cyan);
@@ -85,30 +142,104 @@ import Orb from './Orb.astro';
     transition:
       background 0.25s ease,
       color 0.25s ease,
-      transform 0.25s ease;
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
   }
 
   .hero-actions a:hover {
     background: var(--color-cyan);
     color: var(--color-background);
+
     transform: translateY(-2px);
+
+    box-shadow:
+      0 0 15px rgb(91 206 250 / 25%),
+      0 0 30px rgb(91 206 250 / 10%);
   }
 
-  .hero-orb {
-    display: grid;
-    place-items: center;
-  }
-
-  @media (max-width: 800px) {
-    .hero {
-      grid-template-columns: 1fr;
-      padding: 120px var(--page-padding) 60px;
-    }
-  }
+  /* --------------------------------
+     Orb
+  -------------------------------- */
 
   .hero-orb {
     display: grid;
     place-items: center;
     perspective: 1000px;
+
+    opacity: 0;
+    transform: translateY(35px) scale(0.94);
+
+    animation: orbReveal 2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+  }
+
+  /* --------------------------------
+     Mobile
+  -------------------------------- */
+
+  @media (max-width: 800px) {
+    .hero {
+      grid-template-columns: 1fr;
+
+      padding: 120px var(--page-padding) 60px;
+
+      text-align: center;
+    }
+
+    .intro {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-actions {
+      justify-content: center;
+    }
+
+    .hero-orb {
+      order: -1;
+    }
+  }
+
+  /* --------------------------------
+   Hero entrance animation
+-------------------------------- */
+
+  .hero-reveal {
+    opacity: 0;
+    transform: translateY(12px);
+    animation: heroReveal 0.8s ease-out forwards;
+  }
+
+  .hero-reveal-1 {
+    animation-delay: 0.2s;
+  }
+
+  .hero-reveal-2 {
+    animation-delay: 0.35s;
+  }
+
+  .hero-reveal-3 {
+    animation-delay: 0.5s;
+  }
+
+  .hero-reveal-4 {
+    animation-delay: 0.7s;
+  }
+
+  .hero-reveal-5 {
+    animation-delay: 0.9s;
+  }
+
+  @keyframes heroReveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes orbReveal {
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
   }
 </style>
