@@ -1,0 +1,351 @@
+<div
+  id='orb'
+  class='orb'
+  aria-hidden='true'>
+  <div class='orb-glow'></div>
+
+  <div
+    id='orb-core'
+    class='orb-core'>
+    <div class='core-light'></div>
+  </div>
+
+  <div
+    id='particle-field'
+    class='orb-particles'>
+  </div>
+
+  <div
+    id='ring-one-motion'
+    class='orb-ring-motion'>
+    <div class='orb-ring-wrapper ring-one-wrapper'>
+      <div class='orb-ring'></div>
+    </div>
+  </div>
+
+  <div
+    id='ring-two-motion'
+    class='orb-ring-motion'>
+    <div class='orb-ring-wrapper ring-two-wrapper'>
+      <div class='orb-ring'></div>
+    </div>
+  </div>
+
+  <style>
+    .orb {
+      position: relative;
+
+      width: min(32vw, 420px);
+      aspect-ratio: 1;
+
+      display: grid;
+      place-items: center;
+
+      transform-style: preserve-3d;
+      perspective: 800px;
+    }
+
+    /* --------------------------------
+       Atmospheric glow
+    -------------------------------- */
+
+    .orb-glow {
+      position: absolute;
+
+      inset: -25%;
+
+      border-radius: 50%;
+
+      background: radial-gradient(
+        circle,
+        rgb(91 206 250 / 20%) 0%,
+        rgb(74 144 226 / 12%) 35%,
+        transparent 70%
+      );
+
+      filter: blur(30px);
+
+      pointer-events: none;
+
+      z-index: 1;
+    }
+
+    /* --------------------------------
+       Nebula core
+    -------------------------------- */
+
+    .orb-core {
+      position: absolute;
+
+      inset: 15%;
+
+      border-radius: 50%;
+
+      background: radial-gradient(
+        circle at 35% 30%,
+        rgb(255 255 255 / 90%) 0%,
+        rgb(91 206 250 / 70%) 8%,
+        rgb(74 144 226 / 55%) 25%,
+        rgb(25 55 90 / 80%) 55%,
+        #05070b 75%
+      );
+
+      box-shadow:
+        inset -30px -30px 60px rgb(0 0 0 / 70%),
+        0 0 40px rgb(74 144 226 / 40%);
+
+      overflow: hidden;
+
+      z-index: 5;
+    }
+
+    .core-light {
+      position: absolute;
+
+      width: 70%;
+      height: 40%;
+
+      top: 10%;
+      left: 15%;
+
+      border-radius: 50%;
+
+      background: rgb(255 255 255 / 20%);
+
+      filter: blur(25px);
+
+      transform: rotate(-20deg);
+    }
+
+    /* --------------------------------
+       Particles
+    -------------------------------- */
+
+    :global(.orb-particles) {
+      position: absolute;
+
+      inset: 0;
+
+      pointer-events: none;
+
+      z-index: 10;
+    }
+
+    :global(.orb-particle) {
+      position: absolute;
+
+      width: 6px;
+      height: 6px;
+
+      border-radius: 50%;
+
+      background: var(--color-cyan);
+
+      box-shadow:
+        0 0 8px var(--color-cyan),
+        0 0 16px rgb(91 206 250 / 60%);
+    }
+
+    /* --------------------------------
+       Orbital rings
+    -------------------------------- */
+
+    .orb-ring-motion {
+      position: absolute;
+
+      inset: 10%;
+
+      transform-style: preserve-3d;
+
+      pointer-events: none;
+
+      z-index: 15;
+    }
+
+    .orb-ring-wrapper {
+      position: absolute;
+
+      inset: 0;
+
+      transform-style: preserve-3d;
+    }
+
+    .ring-one-wrapper {
+      transform: rotateX(65deg);
+    }
+
+    .ring-two-wrapper {
+      transform: rotateX(-65deg) rotateY(25deg);
+    }
+
+    .orb-ring {
+      width: 100%;
+      height: 100%;
+
+      border: 1px solid rgb(91 206 250 / 25%);
+
+      border-radius: 50%;
+
+      transform-style: preserve-3d;
+    }
+
+    @media (max-width: 800px) {
+      .orb {
+        width: min(70vw, 340px);
+      }
+    }
+  </style>
+
+  <script>
+    import {animate} from 'animejs';
+
+    /* --------------------------------
+     Generate 3D particle field
+  -------------------------------- */
+
+    const particleField = document.querySelector('#particle-field');
+
+    if (particleField) {
+      const particleCount = 60;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('span');
+
+        particle.classList.add('orb-particle');
+
+        const angle = Math.random() * Math.PI * 2;
+
+        const radius = 25 + Math.random() * 65;
+
+        const depth = -80 + Math.random() * 160;
+
+        const x = 50 + Math.cos(angle) * radius;
+
+        const y = 50 + Math.sin(angle) * radius;
+
+        particle.style.left = `${x}%`;
+        particle.style.top = `${y}%`;
+
+        particle.style.transform = `translateZ(${depth}px)`;
+
+        const depthFactor = (depth + 80) / 160;
+
+        const size = 2 + depthFactor * 5;
+
+        particle.style.width = `${size}px`;
+
+        particle.style.height = `${size}px`;
+
+        particle.style.opacity = `${0.25 + depthFactor * 0.75}`;
+
+        /*
+        Store the particle's orbital data.
+        These values will be used below.
+      */
+
+        particle.dataset.angle = angle.toString();
+
+        particle.dataset.radius = radius.toString();
+
+        particle.dataset.depth = depth.toString();
+
+        particle.dataset.speed = (0.00015 + Math.random() * 0.0003).toString();
+
+        particleField.appendChild(particle);
+      }
+
+      console.log(`Generated ${particleField.children.length} 3D particles`);
+    }
+
+    /* --------------------------------
+     Orbital rings
+  -------------------------------- */
+
+    animate('#ring-one-motion', {
+      rotateZ: '1turn',
+      duration: 12000,
+      ease: 'linear',
+      loop: true,
+    });
+
+    animate('#ring-two-motion', {
+      rotateZ: '-1turn',
+      duration: 18000,
+      ease: 'linear',
+      loop: true,
+    });
+
+    /* --------------------------------
+     Breathing core
+  -------------------------------- */
+
+    animate('#orb-core', {
+      scale: [1, 1.04],
+      opacity: [0.9, 1],
+      duration: 3000,
+      ease: 'inOutSine',
+      alternate: true,
+      loop: true,
+    });
+
+    /* --------------------------------
+     Individual particle pulsing
+  -------------------------------- */
+
+    animate('.orb-particle', {
+      scale: [
+        {
+          to: 0.6,
+          duration: 1200,
+        },
+        {
+          to: 1,
+          duration: 1200,
+        },
+      ],
+
+      delay: (_, i) => i * 150,
+
+      ease: 'inOutSine',
+
+      loop: true,
+    });
+
+    /* --------------------------------
+     Particle orbital motion
+  -------------------------------- */
+
+    const particles = document.querySelectorAll('.orb-particle');
+
+    let startTime = performance.now();
+
+    function animateParticles(currentTime) {
+      const elapsed = currentTime - startTime;
+
+      particles.forEach((particle) => {
+        const angle = Number(particle.dataset.angle);
+
+        const radius = Number(particle.dataset.radius);
+
+        const depth = Number(particle.dataset.depth);
+
+        const speed = Number(particle.dataset.speed);
+
+        const currentAngle = angle + elapsed * speed;
+
+        const x = 50 + Math.cos(currentAngle) * radius;
+
+        const y = 50 + Math.sin(currentAngle) * radius;
+
+        particle.style.left = `${x}%`;
+        particle.style.top = `${y}%`;
+
+        particle.style.transform = `translateZ(${depth}px)`;
+      });
+
+      requestAnimationFrame(animateParticles);
+    }
+
+    requestAnimationFrame(animateParticles);
+  </script>
+</div>
