@@ -251,6 +251,8 @@
 
         particle.dataset.speed = (0.00015 + Math.random() * 0.0003).toString();
 
+        particle.dataset.plane = Math.floor(Math.random() * 3).toString();
+
         particleField.appendChild(particle);
       }
 
@@ -315,15 +317,19 @@
      Particle orbital motion
   -------------------------------- */
 
+    /* --------------------------------
+   Particle orbital motion
+-------------------------------- */
+
     const particles = document.querySelectorAll('.orb-particle');
 
-    let startTime = performance.now();
+    const startTime = performance.now();
 
     function animateParticles(currentTime) {
       const elapsed = currentTime - startTime;
 
       particles.forEach((particle) => {
-        const angle = Number(particle.dataset.angle);
+        const baseAngle = Number(particle.dataset.angle);
 
         const radius = Number(particle.dataset.radius);
 
@@ -331,16 +337,53 @@
 
         const speed = Number(particle.dataset.speed);
 
-        const currentAngle = angle + elapsed * speed;
+        const plane = Number(particle.dataset.plane);
 
-        const x = 50 + Math.cos(currentAngle) * radius;
+        const currentAngle = baseAngle + elapsed * speed;
 
-        const y = 50 + Math.sin(currentAngle) * radius;
+        let x;
+        let y;
+        let z;
 
-        particle.style.left = `${x}%`;
-        particle.style.top = `${y}%`;
+        /* -----------------------------
+       Horizontal orbital plane
+    ----------------------------- */
 
-        particle.style.transform = `translateZ(${depth}px)`;
+        if (plane === 0) {
+          x = Math.cos(currentAngle) * radius;
+
+          y = Math.sin(currentAngle) * radius;
+
+          z = depth * 0.35;
+        }
+
+        /* -----------------------------
+       Vertical orbital plane
+    ----------------------------- */
+        else if (plane === 1) {
+          x = Math.cos(currentAngle) * radius;
+
+          y = Math.sin(currentAngle) * radius;
+
+          z = Math.sin(currentAngle) * depth;
+        }
+
+        /* -----------------------------
+       Diagonal orbital plane
+    ----------------------------- */
+        else {
+          x = Math.cos(currentAngle) * radius;
+
+          y = Math.sin(currentAngle) * radius * 0.65;
+
+          z = Math.cos(currentAngle) * depth;
+        }
+
+        particle.style.left = `${50 + x}%`;
+
+        particle.style.top = `${50 + y}%`;
+
+        particle.style.transform = `translateZ(${z}px)`;
       });
 
       requestAnimationFrame(animateParticles);
