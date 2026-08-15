@@ -12,17 +12,25 @@
         <p class='project-number'>01</p>
 
         <div class='project-content'>
-          <h3>Project Name</h3>
+          <h3>Developer Portfolio</h3>
 
           <p class='project-description'>
-            A short description of the project, the problem it solved and the
-            technology used to build it.
+            A modern developer portfolio designed and built from scratch with
+            Astro, combining interactive 3D visuals, motion and a clean
+            technical interface.
           </p>
 
           <div class='project-tags'>
             <span>Astro</span>
             <span>JavaScript</span>
-            <span>API</span>
+            <span>CSS</span>
+            <span>Animation</span>
+          </div>
+
+          <div class='project-meta'>
+            <span>WEB DEVELOPMENT</span>
+            <span>2026</span>
+            <span>PERSONAL PROJECT</span>
           </div>
 
           <a
@@ -31,23 +39,48 @@
             View project →
           </a>
         </div>
+
+        <div class='project-preview'>
+          <div class='preview-grid'></div>
+
+          <div class='preview-particles'>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <div class='preview-orbit'>
+            <div class='preview-orb'></div>
+            <div class='preview-ring'></div>
+          </div>
+
+          <span class='preview-label'>PROJECT 01</span>
+        </div>
       </article>
 
       <article class='project'>
         <p class='project-number'>02</p>
 
         <div class='project-content'>
-          <h3>Project Name</h3>
+          <h3>Your Project Name</h3>
 
           <p class='project-description'>
-            A short description of the project, the problem it solved and the
-            technology used to build it.
+            Your project description will go here. We'll describe what you
+            built, the problem it solves and the technologies you used.
           </p>
 
           <div class='project-tags'>
-            <span>HTML</span>
-            <span>CSS</span>
+            <span>Astro</span>
             <span>JavaScript</span>
+            <span>API</span>
+          </div>
+
+          <div class='project-meta'>
+            <span>WEB DEVELOPMENT</span>
+            <span>2026</span>
           </div>
 
           <a
@@ -63,7 +96,7 @@
 
 <style>
   .work {
-    padding: 140px var(--page-padding);
+    padding: 80px var(--page-padding) 140px;
   }
 
   .work-inner {
@@ -115,7 +148,6 @@
   .project:hover {
     border-color: rgb(91 206 250 / 35%);
     background: rgb(91 206 250 / 3%);
-    transform: translateY(-4px);
   }
 
   .project-number {
@@ -132,6 +164,247 @@
 
     font-size: clamp(1.8rem, 3vw, 2.8rem);
     letter-spacing: -0.03em;
+  }
+  .project-preview {
+    position: relative;
+    grid-column: 1 / -1;
+    min-height: 280px;
+
+    margin-top: 40px;
+
+    overflow: visible;
+
+    border: 1px solid rgb(91 206 250 / 12%);
+    background:
+      radial-gradient(
+        circle at 50% 50%,
+        rgb(91 206 250 / 10%),
+        transparent 55%
+      ),
+      var(--color-background);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition:
+      border-color 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      background 0.6s ease;
+  }
+
+  .preview-particles {
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+  }
+
+  .preview-particles span {
+    position: absolute;
+
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background: var(--color-cyan);
+
+    box-shadow:
+      0 0 8px var(--color-cyan),
+      0 0 16px rgb(91 206 250 / 40%);
+
+    opacity: 0.6;
+  }
+
+  .preview-particles span:nth-child(1) {
+    top: 25%;
+    left: 30%;
+  }
+
+  .preview-particles span:nth-child(2) {
+    top: 35%;
+    left: 70%;
+  }
+
+  .preview-particles span:nth-child(3) {
+    top: 65%;
+    left: 25%;
+  }
+
+  .preview-particles span:nth-child(4) {
+    top: 72%;
+    left: 72%;
+  }
+
+  .preview-particles span:nth-child(5) {
+    top: 18%;
+    left: 55%;
+  }
+
+  .preview-particles span:nth-child(6) {
+    top: 78%;
+    left: 48%;
+  }
+
+  .preview-particles span {
+    animation: previewParticlePulse 3s ease-in-out infinite;
+  }
+
+  .preview-particles span:nth-child(2) {
+    animation-delay: 0.5s;
+  }
+
+  .preview-particles span:nth-child(3) {
+    animation-delay: 1s;
+  }
+
+  .preview-particles span:nth-child(4) {
+    animation-delay: 1.5s;
+  }
+
+  .preview-particles span:nth-child(5) {
+    animation-delay: 2s;
+  }
+
+  .preview-particles span:nth-child(6) {
+    animation-delay: 2.5s;
+  }
+
+  @keyframes previewParticlePulse {
+    0%,
+    100% {
+      opacity: 0.25;
+      transform: scale(0.7);
+    }
+
+    50% {
+      opacity: 0.8;
+      transform: scale(1.2);
+    }
+  }
+
+  .preview-grid {
+    position: absolute;
+    inset: 0;
+
+    background-image:
+      linear-gradient(rgb(91 206 250 / 5%) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(91 206 250 / 5%) 1px, transparent 1px);
+
+    background-size: 30px 30px;
+
+    mask-image: radial-gradient(circle, black 20%, transparent 75%);
+  }
+
+  .preview-orb {
+    width: 160px;
+    height: 160px;
+
+    border-radius: 50%;
+
+    background: radial-gradient(
+      circle at 35% 30%,
+      white 0%,
+      var(--color-cyan) 8%,
+      var(--color-blue) 35%,
+      #101722 70%,
+      #05070b 100%
+    );
+
+    box-shadow:
+      0 0 30px rgb(91 206 250 / 25%),
+      0 0 80px rgb(74 144 226 / 15%);
+  }
+
+  .preview-orbit {
+    position: relative;
+    z-index: 2;
+
+    width: 200px;
+    height: 200px;
+
+    display: grid;
+    place-items: center;
+  }
+
+  .preview-ring {
+    position: absolute;
+
+    width: 190px;
+    height: 85px;
+
+    border: 1px solid rgb(91 206 250 / 30%);
+    border-radius: 50%;
+    opacity: 0.7;
+
+    transform: rotateX(65deg);
+
+    animation: previewOrbit 8s linear infinite;
+  }
+
+  @keyframes previewOrbit {
+    to {
+      transform: rotateX(65deg) rotateZ(360deg);
+    }
+  }
+  .preview-label {
+    position: absolute;
+
+    left: 20px;
+    bottom: 15px;
+
+    color: var(--color-cyan);
+
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    z-index: 3;
+  }
+
+  .project:hover .preview-orb {
+    transform: scale(1.08);
+    box-shadow:
+      0 0 40px rgb(91 206 250 / 35%),
+      0 0 100px rgb(74 144 226 / 20%);
+  }
+
+  .project-preview {
+    transition:
+      border-color 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      background 0.6s ease;
+  }
+
+  .project:hover .project-preview {
+    border-color: rgb(91 206 250 / 35%);
+  }
+
+  .project:hover .preview-grid {
+    transform: scale(1.04);
+  }
+
+  .preview-orb {
+    transition:
+      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+
+    animation: previewOrbPulse 4s ease-in-out infinite;
+  }
+
+  @keyframes previewOrbPulse {
+    0%,
+    100% {
+      filter: brightness(1);
+    }
+
+    50% {
+      filter: brightness(1.12);
+    }
+  }
+
+  .preview-grid {
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .project-description {
@@ -169,6 +442,19 @@
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+  }
+
+  .project-meta {
+    display: flex;
+    gap: 20px;
+
+    margin-bottom: 25px;
+
+    color: var(--color-text-muted);
+
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
   }
 
   @media (max-width: 800px) {
