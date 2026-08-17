@@ -171,41 +171,38 @@
               <span class='lifecycle-name'>MENU</span>
             </div>
 
-            <div class='lifecycle-connector'>
-              <span></span>
-            </div>
+            <div class='lifecycle-connector'></div>
 
             <div class='lifecycle-step'>
               <span class='lifecycle-dot'></span>
               <span class='lifecycle-name'>CART</span>
             </div>
 
-            <div class='lifecycle-connector'>
-              <span></span>
-            </div>
+            <div class='lifecycle-connector'></div>
 
             <div class='lifecycle-step'>
               <span class='lifecycle-dot'></span>
               <span class='lifecycle-name'>CHECKOUT</span>
             </div>
 
-            <div class='lifecycle-connector'>
-              <span></span>
-            </div>
+            <div class='lifecycle-connector'></div>
 
             <div class='lifecycle-step'>
               <span class='lifecycle-dot'></span>
               <span class='lifecycle-name'>ORDER</span>
             </div>
 
-            <div class='lifecycle-connector'>
-              <span></span>
-            </div>
+            <div class='lifecycle-connector'></div>
 
             <div class='lifecycle-step'>
               <span class='lifecycle-dot'></span>
               <span class='lifecycle-name'>TRACKING</span>
             </div>
+
+            <span
+              class='lifecycle-traveler'
+              aria-hidden='true'>
+            </span>
           </div>
 
           <div class='lifecycle-stack'>
@@ -872,11 +869,11 @@
     position: absolute;
     inset: 0;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    align-items: start;
 
-    padding: 0 40px;
+    padding: 75px 55px 0;
   }
 
   .lifecycle-step {
@@ -885,9 +882,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
     gap: 12px;
 
-    min-width: 90px;
+    min-width: 0;
 
     color: var(--color-text-muted);
 
@@ -904,18 +902,18 @@
     width: 12px;
     height: 12px;
 
-    border: 1px solid rgb(91 206 250 / 45%);
+    border: 1px solid rgb(91 206 250 / 35%);
     border-radius: 50%;
 
     background: var(--color-background);
 
-    box-shadow: 0 0 12px rgb(91 206 250 / 10%);
+    box-shadow: 0 0 8px rgb(91 206 250 / 5%);
 
     transition:
-      background 0.5s ease,
-      border-color 0.5s ease,
-      box-shadow 0.5s ease,
-      transform 0.5s ease;
+      background 0.35s ease,
+      border-color 0.35s ease,
+      box-shadow 0.35s ease,
+      transform 0.35s ease;
   }
 
   .lifecycle-step.active .lifecycle-dot {
@@ -928,6 +926,34 @@
       0 0 25px rgb(91 206 250 / 25%);
   }
 
+  .lifecycle-step.ignite .lifecycle-dot {
+    animation: lifecycleIgnite 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes lifecycleIgnite {
+    0% {
+      transform: scale(1);
+      box-shadow:
+        0 0 8px rgb(91 206 250 / 20%),
+        0 0 15px rgb(91 206 250 / 10%);
+    }
+
+    35% {
+      transform: scale(1.65);
+      box-shadow:
+        0 0 16px var(--color-cyan),
+        0 0 35px rgb(91 206 250 / 75%),
+        0 0 55px rgb(91 206 250 / 35%);
+    }
+
+    100% {
+      transform: scale(1.15);
+      box-shadow:
+        0 0 12px rgb(91 206 250 / 70%),
+        0 0 25px rgb(91 206 250 / 30%);
+    }
+  }
+
   .lifecycle-name {
     font-size: 0.65rem;
     font-weight: 700;
@@ -935,14 +961,55 @@
   }
 
   .lifecycle-connector {
-    position: relative;
-
-    width: 70px;
     height: 1px;
 
-    margin: 0 8px;
+    margin-top: 6px;
 
     background: rgb(91 206 250 / 15%);
+  }
+
+  .lifecycle-traveler {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+
+    background: var(--color-cyan);
+
+    box-shadow:
+      0 0 10px var(--color-cyan),
+      0 0 24px rgb(91 206 250 / 60%);
+
+    transform: translate(-50%, -50%);
+
+    pointer-events: none;
+
+    z-index: 5;
+
+    transition:
+      left 2.8s cubic-bezier(0.16, 1, 0.3, 1),
+      top 0.15s ease;
+
+    animation: lifecycleTravelerGlow 2s ease-in-out infinite;
+  }
+  @keyframes lifecycleTravelerGlow {
+    0%,
+    100% {
+      box-shadow:
+        0 0 8px var(--color-cyan),
+        0 0 18px rgb(91 206 250 / 40%);
+    }
+
+    50% {
+      box-shadow:
+        0 0 14px var(--color-cyan),
+        0 0 30px rgb(91 206 250 / 70%);
+    }
   }
 
   .lifecycle-connector span {
@@ -1072,3 +1139,91 @@
     border-color: rgb(91 206 250 / 40%);
   }
 </style>
+
+<script>
+  const lifecycleFlow = document.querySelector('.lifecycle-flow');
+
+  const lifecycleSteps = document.querySelectorAll('.lifecycle-step');
+
+  const lifecycleTraveler = document.querySelector('.lifecycle-traveler');
+
+  if (lifecycleFlow && lifecycleSteps.length && lifecycleTraveler) {
+    let currentStep = 0;
+
+    const travelDuration = 2800;
+    const pauseDuration = 900;
+    const igniteDuration = 700;
+
+    function getStepPosition(index) {
+      const flowRect = lifecycleFlow.getBoundingClientRect();
+
+      const dot = lifecycleSteps[index].querySelector('.lifecycle-dot');
+
+      const dotRect = dot.getBoundingClientRect();
+
+      return {
+        x: dotRect.left + dotRect.width / 2 - flowRect.left,
+
+        y: dotRect.top + dotRect.height / 2 - flowRect.top,
+      };
+    }
+
+    function moveTravelerToStep(index) {
+      const position = getStepPosition(index);
+
+      lifecycleTraveler.style.left = `${position.x}px`;
+
+      lifecycleTraveler.style.top = `${position.y}px`;
+    }
+
+    function activateStep(index) {
+      lifecycleSteps.forEach((step, stepIndex) => {
+        step.classList.toggle('active', stepIndex === index);
+      });
+
+      const targetStep = lifecycleSteps[index];
+
+      targetStep.classList.remove('ignite');
+
+      // Force a fresh animation cycle.
+      void targetStep.offsetWidth;
+
+      targetStep.classList.add('ignite');
+
+      setTimeout(() => {
+        targetStep.classList.remove('ignite');
+      }, igniteDuration);
+    }
+
+    function travelToNextStep() {
+      const nextStep = (currentStep + 1) % lifecycleSteps.length;
+
+      // Start the journey to the next step.
+      moveTravelerToStep(nextStep);
+
+      // Only ignite the destination when
+      // the traveller has arrived.
+      setTimeout(() => {
+        activateStep(nextStep);
+
+        currentStep = nextStep;
+
+        setTimeout(travelToNextStep, pauseDuration);
+      }, travelDuration);
+    }
+
+    function initialiseLifecycle() {
+      activateStep(0);
+
+      moveTravelerToStep(0);
+
+      setTimeout(travelToNextStep, pauseDuration);
+    }
+
+    initialiseLifecycle();
+
+    window.addEventListener('resize', () => {
+      moveTravelerToStep(currentStep);
+    });
+  }
+</script>
