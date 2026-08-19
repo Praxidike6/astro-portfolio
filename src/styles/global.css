@@ -71,6 +71,12 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+  
+}
+
+.site-main {
+  overflow-x: clip;
 }
 
 body {
@@ -78,6 +84,7 @@ body {
   background: var(--color-background);
   color: var(--color-text);
   font-family: var(--font-body);
+  
 }
 
 a {
@@ -112,15 +119,19 @@ h6 {
   margin: 0 auto;
   padding: var(--space-xl) var(--page-padding);
 }
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
   :root {
-    --page-padding: 25px;
+    --page-padding: 28px;
   }
 
   .section,
   .section-wide {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .section-heading {
+    margin-bottom: 2.5rem;
   }
 }
 
@@ -171,15 +182,22 @@ h6 {
     transform 3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* .reveal {
-  opacity: 0;
-  transform: translateY(100px);
 
-  transition:
-    opacity 3s ease,
-    transform 3s ease;
-} */
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+@media (max-width: 800px) {
+  .reveal {
+    transform: translateY(50px);
+
+    transition:
+      opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal.visible {
+    transform: translateY(0);
+  }
 }

@@ -815,9 +815,39 @@
     letter-spacing: 0.12em;
   }
 
+  /* --------------------------------
+   Tablet
+-------------------------------- */
+
+  @media (max-width: 1000px) {
+    .work {
+      padding: 60px var(--page-padding) 90px;
+    }
+
+    .section-heading {
+      margin-bottom: 45px;
+    }
+
+    .projects {
+      gap: 24px;
+    }
+
+    .project {
+      padding: 40px;
+    }
+  }
+
+  /* --------------------------------
+   Mobile
+-------------------------------- */
+
   @media (max-width: 800px) {
     .work {
-      padding: 100px var(--page-padding);
+      padding: 60px var(--page-padding) 70px;
+    }
+
+    .section-heading {
+      margin-bottom: 35px;
     }
 
     .project {

@@ -29,7 +29,9 @@ const {title = 'Stuart McDonnell — Web Developer'} = Astro.props;
   <body id='top'>
     <Header />
 
-    <slot />
+    <main class='site-main'>
+      <slot />
+    </main>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         const revealElements = document.querySelectorAll('.reveal');

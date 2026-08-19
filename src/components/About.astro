@@ -88,14 +88,40 @@
     margin: 0 0 25px;
   }
 
+  /* --------------------------------
+   Tablet
+-------------------------------- */
+
+  @media (max-width: 1000px) {
+    .about {
+      padding: 70px var(--page-padding) 90px;
+    }
+
+    .section-heading {
+      margin-bottom: 45px;
+    }
+
+    .about-content {
+      gap: 50px;
+    }
+  }
+
+  /* --------------------------------
+   Mobile
+-------------------------------- */
+
   @media (max-width: 800px) {
     .about {
-      padding: 100px var(--page-padding);
+      padding: 60px var(--page-padding) 70px;
+    }
+
+    .section-heading {
+      margin-bottom: 35px;
     }
 
     .about-content {
       grid-template-columns: 1fr;
-      gap: 40px;
+      gap: 35px;
     }
   }
 </style>

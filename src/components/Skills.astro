@@ -123,9 +123,35 @@
     border-bottom: none;
   }
 
+  /* --------------------------------
+   Tablet
+-------------------------------- */
+
+  @media (max-width: 1000px) {
+    .skills {
+      padding: 70px var(--page-padding) 90px;
+    }
+
+    .section-heading {
+      margin-bottom: 45px;
+    }
+
+    .skill-group {
+      padding: 32px;
+    }
+  }
+
+  /* --------------------------------
+   Mobile
+-------------------------------- */
+
   @media (max-width: 800px) {
     .skills {
-      padding: 100px var(--page-padding);
+      padding: 60px var(--page-padding) 70px;
+    }
+
+    .section-heading {
+      margin-bottom: 35px;
     }
 
     .skills-grid {
@@ -133,7 +159,7 @@
     }
 
     .skill-group {
-      padding: 30px;
+      padding: 28px;
     }
   }
 </style>
