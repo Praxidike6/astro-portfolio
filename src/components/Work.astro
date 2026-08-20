@@ -1,8 +1,8 @@
-<section
-  id='work'
-  class='work'>
+<section class='work'>
   <div class='work-inner'>
-    <div class='section-heading reveal'>
+    <div
+      id='work'
+      class='section-heading reveal'>
       <p class='section-number'>03</p>
       <h2>Work</h2>
     </div>
@@ -223,6 +223,7 @@
 <style>
   .work {
     padding: 80px var(--page-padding) 140px;
+    overflow: clip;
   }
 
   .work-inner {
@@ -1255,17 +1256,58 @@
 
   const lifecycleTraveler = document.querySelector('.lifecycle-traveler');
 
-  if (lifecycleFlow && lifecycleSteps.length && lifecycleTraveler) {
+  const lifecyclePreview = document.querySelector('.lifecycle-preview');
+
+  const prefersReducedMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)',
+  ).matches;
+
+  if (
+    lifecycleFlow &&
+    lifecycleSteps.length &&
+    lifecycleTraveler &&
+    lifecyclePreview
+  ) {
     let currentStep = 0;
+
+    let lifecycleIsVisible = false;
+
+    let travelTimer = null;
+    let pauseTimer = null;
+    let igniteTimer = null;
 
     const travelDuration = 2800;
     const pauseDuration = 900;
     const igniteDuration = 700;
 
+    function clearLifecycleTimers() {
+      if (travelTimer) {
+        clearTimeout(travelTimer);
+        travelTimer = null;
+      }
+
+      if (pauseTimer) {
+        clearTimeout(pauseTimer);
+        pauseTimer = null;
+      }
+
+      if (igniteTimer) {
+        clearTimeout(igniteTimer);
+        igniteTimer = null;
+      }
+    }
+
     function getStepPosition(index) {
       const flowRect = lifecycleFlow.getBoundingClientRect();
 
       const dot = lifecycleSteps[index].querySelector('.lifecycle-dot');
+
+      if (!dot) {
+        return {
+          x: 0,
+          y: 0,
+        };
+      }
 
       const dotRect = dot.getBoundingClientRect();
 
@@ -1289,46 +1331,92 @@
         step.classList.toggle('active', stepIndex === index);
       });
 
+      if (prefersReducedMotion) {
+        return;
+      }
+
       const targetStep = lifecycleSteps[index];
 
       targetStep.classList.remove('ignite');
 
-      // Force a fresh animation cycle.
       void targetStep.offsetWidth;
 
       targetStep.classList.add('ignite');
 
-      setTimeout(() => {
+      igniteTimer = window.setTimeout(() => {
         targetStep.classList.remove('ignite');
+
+        igniteTimer = null;
       }, igniteDuration);
     }
 
     function travelToNextStep() {
+      if (!lifecycleIsVisible || prefersReducedMotion) {
+        return;
+      }
+
       const nextStep = (currentStep + 1) % lifecycleSteps.length;
 
-      // Start the journey to the next step.
       moveTravelerToStep(nextStep);
 
-      // Only ignite the destination when
-      // the traveller has arrived.
-      setTimeout(() => {
+      travelTimer = window.setTimeout(() => {
+        if (!lifecycleIsVisible) {
+          return;
+        }
+
         activateStep(nextStep);
 
         currentStep = nextStep;
 
-        setTimeout(travelToNextStep, pauseDuration);
+        travelTimer = null;
+
+        pauseTimer = window.setTimeout(() => {
+          pauseTimer = null;
+
+          travelToNextStep();
+        }, pauseDuration);
       }, travelDuration);
     }
 
-    function initialiseLifecycle() {
-      activateStep(0);
+    function startLifecycle() {
+      clearLifecycleTimers();
 
-      moveTravelerToStep(0);
+      activateStep(currentStep);
+      moveTravelerToStep(currentStep);
 
-      setTimeout(travelToNextStep, pauseDuration);
+      if (prefersReducedMotion) {
+        return;
+      }
+
+      pauseTimer = window.setTimeout(() => {
+        pauseTimer = null;
+
+        travelToNextStep();
+      }, pauseDuration);
     }
 
-    initialiseLifecycle();
+    function stopLifecycle() {
+      clearLifecycleTimers();
+    }
+
+    const lifecycleObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry) return;
+
+        lifecycleIsVisible = entry.isIntersecting;
+
+        if (lifecycleIsVisible) {
+          startLifecycle();
+        } else {
+          stopLifecycle();
+        }
+      },
+      {
+        threshold: 0.05,
+      },
+    );
+
+    lifecycleObserver.observe(lifecyclePreview);
 
     window.addEventListener('resize', () => {
       moveTravelerToStep(currentStep);

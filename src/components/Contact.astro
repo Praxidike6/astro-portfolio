@@ -2,9 +2,7 @@
   id='contact'
   class='contact'>
   <div class='contact-inner'>
-    <div
-      
-      class='section-heading'>
+    <div class='section-heading'>
       <p class='section-number'>05</p>
     </div>
 
@@ -22,7 +20,7 @@
         </p>
 
         <a
-          href='mailto:your@email.com'
+          href='mailto:mcdonnell.stuart@gmail.com'
           class='contact-button'>
           Get in touch →
         </a>
@@ -30,22 +28,17 @@
 
       <div class='contact-links'>
         <a
-          href='#'
-          aria-label='GitHub'>
-          GitHub
-          <span>↗</span>
-        </a>
-
-        <a
-          href='#'
-          aria-label='LinkedIn'>
+          href='https://www.linkedin.com/in/stuart-mcdonnell-762955166'
+          target='_blank'
+          rel='noopener noreferrer'
+          aria-label='LinkedIn profile'>
           LinkedIn
           <span>↗</span>
         </a>
 
         <a
-          href='mailto:your@email.com'
-          aria-label='Email'>
+          href='mailto:mcdonnell.stuart@gmail.com'
+          aria-label='Email Stuart McDonnell'>
           Email
           <span>↗</span>
         </a>
@@ -56,14 +49,20 @@
 
 <style>
   .contact {
-  position: relative;
+    position: relative;
+    isolation: isolate;
 
-  min-height: calc(100vh - 100px);
+    min-height: calc(100dvh - 80px);
 
-  padding: 36px var(--page-padding) 96px;
+    padding: 0 var(--page-padding) 60px;
 
-  overflow: hidden;
-}
+    overflow: clip;
+  }
+
+  .contact::before,
+  .contact::after {
+    z-index: 0;
+  }
 
   .contact::before {
     content: '';
@@ -94,21 +93,25 @@
 
     background-size: 40px 40px;
 
-    mask-image: opacity: 0.4;
+    opacity: 0.4;
 
     pointer-events: none;
   }
 
   .contact-inner {
     position: relative;
-    z-index: 2;
+    z-index: 1;
 
     width: 100%;
     max-width: var(--content-width);
-    margin: 0 auto;
-  }
 
-  
+    min-height: calc(100dvh - 140px);
+
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-rows: auto 1fr;
+  }
 
   .section-heading {
     margin-bottom: 35px;
@@ -128,7 +131,9 @@
     display: grid;
     grid-template-columns: 1fr 300px;
     gap: 100px;
-    align-items: end;
+
+    align-items: center;
+    align-self: center;
   }
 
   .contact-main h2 {
@@ -220,36 +225,29 @@
     font-size: 1rem;
   }
 
-  .contact-main.reveal {
-    transition-delay: 0s;
-  }
-
-  .contact-links.reveal {
-    transition-delay: 0.25s;
-  }
-
   @media (max-width: 1000px) {
-  .contact {
-    padding: 50px var(--page-padding) 60px;
+    .contact {
+      min-height: calc(100dvh - 80px);
+      padding: 0 var(--page-padding) 50px;
+    }
+
+    .contact-inner {
+      min-height: calc(100dvh - 130px);
+    }
+
+    .section-heading {
+      margin-bottom: 30px;
+    }
   }
 
-  .section-heading {
-    margin-bottom: 30px;
-  }
-}
+  @media (max-width: 800px) {
+    .contact-content {
+      grid-template-columns: 1fr;
+      gap: 60px;
+    }
 
-@media (max-width: 800px) {
-  .contact {
-    padding: 50px var(--page-padding) 60px;
+    .contact-main h2 {
+      font-size: clamp(3rem, 15vw, 5rem);
+    }
   }
-
-  .contact-content {
-    grid-template-columns: 1fr;
-    gap: 60px;
-  }
-
-  .contact-main h2 {
-    font-size: clamp(3rem, 15vw, 5rem);
-  }
-}
 </style>

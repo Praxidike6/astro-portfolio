@@ -34,429 +34,521 @@
       </div>
     </div>
   </div>
+</div>
 
-  <style>
-    .orb {
-      position: relative;
+<style>
+  .orb-scene {
+    position: relative;
 
-      width: min(32vw, 420px);
-      aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-      display: grid;
-      place-items: center;
+    perspective: 1200px;
 
-      transform-style: preserve-3d;
-      will-change: transform;
-    }
+    transform-style: preserve-3d;
 
-    /* --------------------------------
-       Atmospheric glow
-    -------------------------------- */
+    touch-action: none;
+  }
 
-    .orb-glow {
-      position: absolute;
+  .orb {
+    position: relative;
 
-      inset: -25%;
+    width: min(32vw, 420px);
+    aspect-ratio: 1;
 
-      border-radius: 50%;
+    display: grid;
+    place-items: center;
 
-      background: radial-gradient(
-        circle,
-        rgb(91 206 250 / 20%) 0%,
-        rgb(74 144 226 / 12%) 35%,
-        transparent 70%
-      );
+    transform-style: preserve-3d;
 
-      filter: blur(30px);
+    will-change: transform;
+  }
 
-      pointer-events: none;
-
-      z-index: 1;
-    }
-
-    /* --------------------------------
-       Nebula core
-    -------------------------------- */
-
-    .orb-core {
-      position: absolute;
-
-      inset: 15%;
-
-      border-radius: 50%;
-
-      background: radial-gradient(
-        circle at 35% 30%,
-        rgb(255 255 255 / 90%) 0%,
-        rgb(91 206 250 / 70%) 8%,
-        rgb(74 144 226 / 55%) 25%,
-        rgb(25 55 90 / 80%) 55%,
-        #05070b 75%
-      );
-
-      box-shadow:
-        inset -30px -30px 60px rgb(0 0 0 / 70%),
-        0 0 40px rgb(74 144 226 / 40%);
-
-      overflow: hidden;
-
-      z-index: 5;
-    }
-
-    .core-light {
-      position: absolute;
-
-      width: 70%;
-      height: 40%;
-
-      top: 10%;
-      left: 15%;
-
-      border-radius: 50%;
-
-      background: rgb(255 255 255 / 20%);
-
-      filter: blur(25px);
-
-      transform: rotate(-20deg);
-    }
-
-    /* --------------------------------
-       Particles
-    -------------------------------- */
-
-    .orb-scene {
-      position: relative;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      perspective: 1200px;
-
-      transform-style: preserve-3d;
-
-      touch-action: none;
-    }
-
-    .orb {
-      will-change: transform;
-    }
-
-    :global(.orb-particles) {
-      position: absolute;
-
-      inset: 0;
-
-      pointer-events: none;
-
-      z-index: 10;
-    }
-
-    :global(.orb-particle) {
-      position: absolute;
-
-      width: 6px;
-      height: 6px;
-
-      border-radius: 50%;
-
-      background: var(--color-cyan);
-
-      box-shadow:
-        0 0 8px var(--color-cyan),
-        0 0 16px rgb(91 206 250 / 60%);
-    }
-
-    /* --------------------------------
-       Orbital rings
-    -------------------------------- */
-
-    .orb-ring-motion {
-      position: absolute;
-
-      inset: 10%;
-
-      transform-style: preserve-3d;
-
-      pointer-events: none;
-
-      z-index: 15;
-    }
-
-    .orb-ring-wrapper {
-      position: absolute;
-
-      inset: 0;
-
-      transform-style: preserve-3d;
-    }
-
-    .ring-one-wrapper {
-      transform: rotateX(65deg);
-    }
-
-    .ring-two-wrapper {
-      transform: rotateX(-65deg) rotateY(25deg);
-    }
-
-    .orb-ring {
-      width: 100%;
-      height: 100%;
-
-      border: 1px solid rgb(91 206 250 / 25%);
-
-      border-radius: 50%;
-
-      transform-style: preserve-3d;
-    }
-
-    @media (max-width: 800px) {
-      .orb {
-        width: min(70vw, 340px);
-      }
-    }
-  </style>
-
-  <script>
-    import {animate} from 'animejs';
-
-    /* --------------------------------
-     Generate 3D particle field
+  /* --------------------------------
+     Atmospheric glow
   -------------------------------- */
 
-    const particleField = document.querySelector('#particle-field');
+  .orb-glow {
+    position: absolute;
 
-    if (particleField) {
-      const particleCount = 60;
+    inset: -25%;
 
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('span');
+    border-radius: 50%;
 
-        particle.classList.add('orb-particle');
+    background: radial-gradient(
+      circle,
+      rgb(91 206 250 / 20%) 0%,
+      rgb(74 144 226 / 12%) 35%,
+      transparent 70%
+    );
 
-        const angle = Math.random() * Math.PI * 2;
+    filter: blur(30px);
 
-        const radius = 25 + Math.random() * 65;
+    pointer-events: none;
 
-        const depth = -80 + Math.random() * 160;
+    z-index: 1;
+  }
 
-        const x = 50 + Math.cos(angle) * radius;
+  /* --------------------------------
+     Nebula core
+  -------------------------------- */
 
-        const y = 50 + Math.sin(angle) * radius;
+  .orb-core {
+    position: absolute;
 
-        particle.style.left = `${x}%`;
-        particle.style.top = `${y}%`;
+    inset: 15%;
 
-        particle.style.transform = `translateZ(${depth}px)`;
+    border-radius: 50%;
 
-        const depthFactor = (depth + 80) / 160;
+    background: radial-gradient(
+      circle at 35% 30%,
+      rgb(255 255 255 / 90%) 0%,
+      rgb(91 206 250 / 70%) 8%,
+      rgb(74 144 226 / 55%) 25%,
+      rgb(25 55 90 / 80%) 55%,
+      #05070b 75%
+    );
 
-        const size = 2 + depthFactor * 5;
+    box-shadow:
+      inset -30px -30px 60px rgb(0 0 0 / 70%),
+      0 0 40px rgb(74 144 226 / 40%);
 
-        particle.style.width = `${size}px`;
+    overflow: hidden;
 
-        particle.style.height = `${size}px`;
+    z-index: 5;
+  }
 
-        particle.style.opacity = `${0.25 + depthFactor * 0.75}`;
+  .core-light {
+    position: absolute;
 
-        /*
-        Store the particle's orbital data.
-        These values will be used below.
-      */
+    width: 70%;
+    height: 40%;
 
-        particle.dataset.angle = angle.toString();
+    top: 10%;
+    left: 15%;
 
-        particle.dataset.radius = radius.toString();
+    border-radius: 50%;
 
-        particle.dataset.depth = depth.toString();
+    background: rgb(255 255 255 / 20%);
 
-        particle.dataset.speed = (0.00015 + Math.random() * 0.0003).toString();
+    filter: blur(25px);
 
-        particle.dataset.plane = Math.floor(Math.random() * 3).toString();
+    transform: rotate(-20deg);
+  }
 
-        particleField.appendChild(particle);
-      }
+  /* --------------------------------
+     Particles
+  -------------------------------- */
 
-      console.log(`Generated ${particleField.children.length} 3D particles`);
-    }
+  :global(.orb-particles) {
+    position: absolute;
 
-    /* --------------------------------
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 10;
+  }
+
+  :global(.orb-particle) {
+    position: absolute;
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: var(--color-cyan);
+
+    box-shadow:
+      0 0 8px var(--color-cyan),
+      0 0 16px rgb(91 206 250 / 60%);
+  }
+
+  /* --------------------------------
      Orbital rings
   -------------------------------- */
 
-    animate('#ring-one-motion', {
-      rotateZ: '1turn',
-      duration: 12000,
-      ease: 'linear',
-      loop: true,
-    });
+  .orb-ring-motion {
+    position: absolute;
 
-    animate('#ring-two-motion', {
-      rotateZ: '-1turn',
-      duration: 18000,
-      ease: 'linear',
-      loop: true,
-    });
+    inset: 10%;
 
-    /* --------------------------------
-     Breathing core
+    transform-style: preserve-3d;
+
+    pointer-events: none;
+
+    z-index: 15;
+  }
+
+  .orb-ring-wrapper {
+    position: absolute;
+
+    inset: 0;
+
+    transform-style: preserve-3d;
+  }
+
+  .ring-one-wrapper {
+    transform: rotateX(65deg);
+  }
+
+  .ring-two-wrapper {
+    transform: rotateX(-65deg) rotateY(25deg);
+  }
+
+  .orb-ring {
+    width: 100%;
+    height: 100%;
+
+    border: 1px solid rgb(91 206 250 / 25%);
+
+    border-radius: 50%;
+
+    transform-style: preserve-3d;
+  }
+
+  /* --------------------------------
+     Mobile
   -------------------------------- */
 
-    animate('#orb-core', {
-      scale: [1, 1.04],
-      opacity: [0.9, 1],
-      duration: 3000,
-      ease: 'inOutSine',
-      alternate: true,
-      loop: true,
-    });
+  @media (max-width: 800px) {
+    .orb {
+      width: min(70vw, 340px);
+    }
+  }
+</style>
 
-    /* --------------------------------
-     Individual particle pulsing
+<script>
+  import {animate} from 'animejs';
+
+  const particleField = document.querySelector('#particle-field');
+
+  const orbScene = document.querySelector('#orb-scene');
+
+  const orb = document.querySelector('#orb');
+
+  /* --------------------------------
+     Generate 3D particle field
   -------------------------------- */
 
-    animate('.orb-particle', {
-      scale: [
-        {
-          to: 0.6,
-          duration: 1200,
-        },
-        {
-          to: 1,
-          duration: 1200,
-        },
-      ],
+  if (particleField) {
+    const particleCount = 60;
 
-      delay: (_, i) => i * 150,
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('span');
 
-      ease: 'inOutSine',
+      particle.classList.add('orb-particle');
 
-      loop: true,
-    });
+      const angle = Math.random() * Math.PI * 2;
 
-    /* --------------------------------
+      const radius = 25 + Math.random() * 65;
+
+      const depth = -80 + Math.random() * 160;
+
+      const x = 50 + Math.cos(angle) * radius;
+
+      const y = 50 + Math.sin(angle) * radius;
+
+      particle.style.left = `${x}%`;
+      particle.style.top = `${y}%`;
+
+      particle.style.transform = `translateZ(${depth}px)`;
+
+      const depthFactor = (depth + 80) / 160;
+
+      const size = 2 + depthFactor * 5;
+
+      particle.style.width = `${size}px`;
+
+      particle.style.height = `${size}px`;
+
+      particle.style.opacity = `${0.25 + depthFactor * 0.75}`;
+
+      /*
+       * Store the particle's orbital data.
+       * These values are reused by the
+       * requestAnimationFrame loop.
+       */
+
+      particle.dataset.angle = angle.toString();
+
+      particle.dataset.radius = radius.toString();
+
+      particle.dataset.depth = depth.toString();
+
+      particle.dataset.speed = (0.00015 + Math.random() * 0.0003).toString();
+
+      particle.dataset.plane = Math.floor(Math.random() * 3).toString();
+
+      particleField.appendChild(particle);
+    }
+  }
+
+  /* --------------------------------
+     Anime.js animations
+  -------------------------------- */
+
+  const ringOneAnimation = animate('#ring-one-motion', {
+    rotateZ: '1turn',
+    duration: 12000,
+    ease: 'linear',
+    loop: true,
+  });
+
+  const ringTwoAnimation = animate('#ring-two-motion', {
+    rotateZ: '-1turn',
+    duration: 18000,
+    ease: 'linear',
+    loop: true,
+  });
+
+  const coreAnimation = animate('#orb-core', {
+    scale: [1, 1.04],
+    opacity: [0.9, 1],
+
+    duration: 3000,
+
+    ease: 'inOutSine',
+
+    alternate: true,
+    loop: true,
+  });
+
+  const particlePulseAnimation = animate('.orb-particle', {
+    scale: [
+      {
+        to: 0.6,
+        duration: 1200,
+      },
+      {
+        to: 1,
+        duration: 1200,
+      },
+    ],
+
+    delay: (_, i) => i * 150,
+
+    ease: 'inOutSine',
+
+    loop: true,
+  });
+
+  /* --------------------------------
+     Visibility state
+  -------------------------------- */
+
+  let orbIsVisible = true;
+
+  /* --------------------------------
      Particle orbital motion
   -------------------------------- */
 
-    /* --------------------------------
-   Particle orbital motion
--------------------------------- */
+  const particles = document.querySelectorAll('.orb-particle');
 
-    const particles = document.querySelectorAll('.orb-particle');
+  let particleAnimationFrame = 0;
 
-    const startTime = performance.now();
+  let particleElapsed = 0;
 
-    function animateParticles(currentTime) {
-      const elapsed = currentTime - startTime;
+  let previousParticleTime = null;
 
-      particles.forEach((particle) => {
-        const baseAngle = Number(particle.dataset.angle);
+  function animateParticles(currentTime) {
+    if (!orbIsVisible) {
+      particleAnimationFrame = 0;
+      previousParticleTime = null;
 
-        const radius = Number(particle.dataset.radius);
-
-        const depth = Number(particle.dataset.depth);
-
-        const speed = Number(particle.dataset.speed);
-
-        const plane = Number(particle.dataset.plane);
-
-        const currentAngle = baseAngle + elapsed * speed;
-
-        let x;
-        let y;
-        let z;
-
-        /* -----------------------------
-       Horizontal orbital plane
-    ----------------------------- */
-
-        if (plane === 0) {
-          x = Math.cos(currentAngle) * radius;
-
-          y = Math.sin(currentAngle) * radius;
-
-          z = depth * 0.35;
-        }
-
-        /* -----------------------------
-       Vertical orbital plane
-    ----------------------------- */
-        else if (plane === 1) {
-          x = Math.cos(currentAngle) * radius;
-
-          y = Math.sin(currentAngle) * radius;
-
-          z = Math.sin(currentAngle) * depth;
-        }
-
-        /* -----------------------------
-       Diagonal orbital plane
-    ----------------------------- */
-        else {
-          x = Math.cos(currentAngle) * radius;
-
-          y = Math.sin(currentAngle) * radius * 0.65;
-
-          z = Math.cos(currentAngle) * depth;
-        }
-
-        particle.style.left = `${50 + x}%`;
-
-        particle.style.top = `${50 + y}%`;
-
-        particle.style.transform = `translateZ(${z}px)`;
-      });
-
-      requestAnimationFrame(animateParticles);
+      return;
     }
 
-    requestAnimationFrame(animateParticles);
+    /*
+     * Track only time spent while the
+     * Orb is actually animating.
+     *
+     * This prevents particles jumping
+     * forward when the Orb re-enters
+     * the viewport.
+     */
 
-    /* --------------------------------
-   Mouse interaction
--------------------------------- */
+    if (previousParticleTime === null) {
+      previousParticleTime = currentTime;
+    }
 
-    const orbScene = document.querySelector('#orb-scene');
-    const orb = document.querySelector('#orb');
+    particleElapsed += currentTime - previousParticleTime;
 
-    let targetRotateX = 0;
-    let targetRotateY = 0;
+    previousParticleTime = currentTime;
 
-    let currentRotateX = 0;
-    let currentRotateY = 0;
+    particles.forEach((particle) => {
+      const baseAngle = Number(particle.dataset.angle);
 
-    if (orbScene && orb) {
-      orbScene.addEventListener('pointermove', (event) => {
-        const rect = orbScene.getBoundingClientRect();
+      const radius = Number(particle.dataset.radius);
 
-        const x = (event.clientX - rect.left) / rect.width;
+      const depth = Number(particle.dataset.depth);
 
-        const y = (event.clientY - rect.top) / rect.height;
+      const speed = Number(particle.dataset.speed);
 
-        targetRotateY = (x - 0.5) * 16;
-        targetRotateX = -(y - 0.5) * 16;
-      });
+      const plane = Number(particle.dataset.plane);
 
-      orbScene.addEventListener('pointerleave', () => {
-        targetRotateX = 0;
-        targetRotateY = 0;
-      });
+      const currentAngle = baseAngle + particleElapsed * speed;
 
-      function animateOrbTilt() {
-        currentRotateX += (targetRotateX - currentRotateX) * 0.08;
+      let x = 0;
+      let y = 0;
+      let z = 0;
 
-        currentRotateY += (targetRotateY - currentRotateY) * 0.08;
+      /* -----------------------------
+         Horizontal orbital plane
+      ----------------------------- */
 
-        orb.style.transform = `
-        rotateX(${currentRotateX}deg)
-        rotateY(${currentRotateY}deg)
-      `;
+      if (plane === 0) {
+        x = Math.cos(currentAngle) * radius;
 
-        requestAnimationFrame(animateOrbTilt);
+        y = Math.sin(currentAngle) * radius;
+
+        z = depth * 0.35;
       }
 
-      animateOrbTilt();
+      /* -----------------------------
+         Vertical orbital plane
+      ----------------------------- */
+      else if (plane === 1) {
+        x = Math.cos(currentAngle) * radius;
+
+        y = Math.sin(currentAngle) * radius;
+
+        z = Math.sin(currentAngle) * depth;
+      }
+
+      /* -----------------------------
+         Diagonal orbital plane
+      ----------------------------- */
+      else {
+        x = Math.cos(currentAngle) * radius;
+
+        y = Math.sin(currentAngle) * radius * 0.65;
+
+        z = Math.cos(currentAngle) * depth;
+      }
+
+      particle.style.left = `${50 + x}%`;
+
+      particle.style.top = `${50 + y}%`;
+
+      particle.style.transform = `translateZ(${z}px)`;
+    });
+
+    particleAnimationFrame = requestAnimationFrame(animateParticles);
+  }
+
+  /* --------------------------------
+     Mouse interaction
+  -------------------------------- */
+
+  let targetRotateX = 0;
+  let targetRotateY = 0;
+
+  let currentRotateX = 0;
+  let currentRotateY = 0;
+
+  let tiltAnimationFrame = 0;
+
+  if (orbScene && orb) {
+    orbScene.addEventListener('pointermove', (event) => {
+      const rect = orbScene.getBoundingClientRect();
+
+      const x = (event.clientX - rect.left) / rect.width;
+
+      const y = (event.clientY - rect.top) / rect.height;
+
+      targetRotateY = (x - 0.5) * 16;
+
+      targetRotateX = -(y - 0.5) * 16;
+    });
+
+    orbScene.addEventListener('pointerleave', () => {
+      targetRotateX = 0;
+      targetRotateY = 0;
+    });
+  }
+
+  function animateOrbTilt() {
+    if (!orbIsVisible || !orb) {
+      tiltAnimationFrame = 0;
+
+      return;
     }
-  </script>
-</div>
+
+    currentRotateX += (targetRotateX - currentRotateX) * 0.08;
+
+    currentRotateY += (targetRotateY - currentRotateY) * 0.08;
+
+    orb.style.transform = `
+      rotateX(${currentRotateX}deg)
+      rotateY(${currentRotateY}deg)
+    `;
+
+    tiltAnimationFrame = requestAnimationFrame(animateOrbTilt);
+  }
+
+  /* --------------------------------
+     Start animation loops
+  -------------------------------- */
+
+  particleAnimationFrame = requestAnimationFrame(animateParticles);
+
+  if (orb) {
+    tiltAnimationFrame = requestAnimationFrame(animateOrbTilt);
+  }
+
+  /* --------------------------------
+     Pause animations off-screen
+  -------------------------------- */
+
+  if (orbScene) {
+    const orbSceneObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry) return;
+
+        orbIsVisible = entry.isIntersecting;
+
+        if (orbIsVisible) {
+          ringOneAnimation.resume();
+          ringTwoAnimation.resume();
+          coreAnimation.resume();
+          particlePulseAnimation.resume();
+
+          if (!particleAnimationFrame) {
+            particleAnimationFrame = requestAnimationFrame(animateParticles);
+          }
+
+          if (orb && !tiltAnimationFrame) {
+            tiltAnimationFrame = requestAnimationFrame(animateOrbTilt);
+          }
+        } else {
+          ringOneAnimation.pause();
+          ringTwoAnimation.pause();
+          coreAnimation.pause();
+          particlePulseAnimation.pause();
+
+          if (particleAnimationFrame) {
+            cancelAnimationFrame(particleAnimationFrame);
+
+            particleAnimationFrame = 0;
+
+            previousParticleTime = null;
+          }
+
+          if (tiltAnimationFrame) {
+            cancelAnimationFrame(tiltAnimationFrame);
+
+            tiltAnimationFrame = 0;
+          }
+        }
+      },
+      {
+        threshold: 0.01,
+      },
+    );
+
+    orbSceneObserver.observe(orbScene);
+  }
+</script>

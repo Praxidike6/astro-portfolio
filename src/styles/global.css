@@ -72,19 +72,21 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
-  
-}
-
-.site-main {
-  overflow-x: clip;
+ overscroll-behavior: none;
+  background: var(--color-background);
 }
 
 body {
   margin: 0;
+
   background: var(--color-background);
   color: var(--color-text);
+
   font-family: var(--font-body);
-  
+}
+
+.site-main {
+  overflow-x: clip;
 }
 
 a {
@@ -119,21 +121,7 @@ h6 {
   margin: 0 auto;
   padding: var(--space-xl) var(--page-padding);
 }
-@media (max-width: 1000px) {
-  :root {
-    --page-padding: 28px;
-  }
 
-  .section,
-  .section-wide {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-  }
-
-  .section-heading {
-    margin-bottom: 2.5rem;
-  }
-}
 
 .section-heading {
   margin-bottom: var(--space-lg);
@@ -199,5 +187,57 @@ h6 {
 
   .reveal.visible {
     transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 1000px) {
+  :root {
+    --page-padding: 28px;
+  }
+
+  .section,
+  .section-wide {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .section-heading {
+    margin-bottom: 2.5rem;
+  }
+}
+
+@media (min-width: 1400px) {
+  body .site-main .hero,
+  body .site-main .about-inner,
+  body .site-main .skills-inner,
+  body .site-main .work-inner,
+  body .site-main .experience-inner,
+  body .site-main .contact-inner {
+    margin-left: max(
+      var(--page-padding),
+      calc((100vw - var(--content-width)) / 2 - 120px)
+    );
+
+    margin-right: auto;
   }
 }
