@@ -225,18 +225,36 @@
     font-size: 1rem;
   }
 
-  @media (max-width: 1000px) {
+  @media (max-width: 1000px) and (min-width: 801px) {
     .contact {
       min-height: calc(100dvh - 80px);
-      padding: 0 var(--page-padding) 50px;
+
+      padding: 0 var(--page-padding) 60px;
     }
 
     .contact-inner {
-      min-height: calc(100dvh - 130px);
+      min-height: auto;
+
+      display: block;
     }
 
     .section-heading {
-      margin-bottom: 30px;
+      margin-bottom: 36px;
+    }
+
+    .contact-content {
+      grid-template-columns:
+        minmax(0, 1fr)
+        240px;
+
+      gap: 50px;
+
+      align-items: end;
+      align-self: auto;
+    }
+
+    .contact-main h2 {
+      font-size: clamp(3.8rem, 8vw, 5rem);
     }
   }
 

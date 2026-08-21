@@ -108,7 +108,7 @@
             <span></span>
             <span></span>
 
-            <div class='browser-address'>your-project.dev</div>
+            <div class='browser-address'>cowpercottagewellness.com</div>
           </div>
 
           <div class='browser-screen'>
@@ -123,7 +123,10 @@
             </div>
           </div>
 
-          <span class='browser-label'>PROJECT 02</span>
+          <div class='preview-info'>
+            <span class='preview-label'>PROJECT 02</span>
+            <span class='preview-title'>COWPER COTTAGE WELLNESS</span>
+          </div>
         </div>
       </article>
 
@@ -213,7 +216,10 @@
             <span>GEOLOCATION</span>
           </div>
 
-          <span class='lifecycle-label'>PROJECT 03 · REACT FAST PIZZA</span>
+          <div class='preview-info'>
+            <span class='preview-label'>PROJECT 03</span>
+            <span class='preview-title'>REACT FAST PIZZA</span>
+          </div>
         </div>
       </article>
     </div>
@@ -319,24 +325,30 @@
       transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
       background 0.6s ease;
   }
-
   .browser-preview {
     position: relative;
 
     grid-column: 1 / -1;
 
     min-height: 300px;
-
     margin-top: 40px;
 
-    border: 1px solid rgb(91 206 250 / 12%);
-    border-radius: 3px;
+    border: 1px solid rgb(91 206 250 / 28%);
+    border-radius: 4px;
 
     overflow: hidden;
 
-    background: #080d14;
+    background:
+      radial-gradient(
+        circle at 75% 30%,
+        rgb(74 144 226 / 13%),
+        transparent 42%
+      ),
+      linear-gradient(135deg, #0b1420 0%, #071019 55%, #080d14 100%);
 
-    box-shadow: inset 0 0 40px rgb(91 206 250 / 3%);
+    box-shadow:
+      inset 0 0 50px rgb(91 206 250 / 5%),
+      0 0 30px rgb(74 144 226 / 5%);
 
     transition:
       border-color 0.6s ease,
@@ -358,15 +370,19 @@
     background: #0d141f;
   }
 
-  .browser-bar > span {
-    width: 7px;
-    height: 7px;
+  .browser-bar {
+    height: 42px;
 
-    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    gap: 7px;
 
-    background: rgb(91 206 250 / 30%);
+    padding: 0 15px;
+
+    border-bottom: 1px solid rgb(91 206 250 / 20%);
+
+    background: #101a27;
   }
-
   .browser-address {
     flex: 1;
 
@@ -379,8 +395,7 @@
   }
 
   .browser-screen {
-    padding: 45px;
-
+    padding: 45px 45px 90px;
     min-height: 258px;
   }
 
@@ -392,14 +407,20 @@
 
     border-radius: 3px;
 
-    background: rgb(91 206 250 / 14%);
+    background: rgb(91 206 250 / 24%);
   }
 
   .browser-line-large {
     width: 72%;
     height: 18px;
 
-    background: rgb(91 206 250 / 25%);
+    background: linear-gradient(
+      90deg,
+      rgb(91 206 250 / 55%),
+      rgb(74 144 226 / 28%)
+    );
+
+    box-shadow: 0 0 18px rgb(91 206 250 / 8%);
   }
 
   .browser-line-short {
@@ -418,25 +439,19 @@
   .browser-columns div {
     min-height: 70px;
 
-    border: 1px solid rgb(91 206 250 / 10%);
-    background: rgb(91 206 250 / 4%);
+    border: 1px solid rgb(91 206 250 / 22%);
+
+    background: linear-gradient(
+      145deg,
+      rgb(91 206 250 / 10%),
+      rgb(74 144 226 / 5%)
+    );
+
+    box-shadow: inset 0 0 20px rgb(91 206 250 / 3%);
 
     transition:
       border-color 0.5s ease,
       background 0.5s ease;
-  }
-
-  .browser-label {
-    position: absolute;
-
-    right: 20px;
-    bottom: 15px;
-
-    color: var(--color-cyan);
-
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
   }
 
   .project-browser:hover .browser-preview {
@@ -468,13 +483,20 @@
       background 0.5s ease;
   }
 
-  .project-browser:hover .browser-line-large {
-    width: 78%;
+  .project-browser:hover .browser-line {
     background: rgb(91 206 250 / 32%);
   }
 
-  .project-browser:hover .browser-line {
-    background: rgb(91 206 250 / 20%);
+  .project-browser:hover .browser-line-large {
+    width: 78%;
+
+    background: linear-gradient(
+      90deg,
+      rgb(91 206 250 / 70%),
+      rgb(74 144 226 / 38%)
+    );
+
+    box-shadow: 0 0 24px rgb(91 206 250 / 12%);
   }
   .preview-particles {
     position: absolute;
@@ -631,8 +653,8 @@
   }
 
   /* --------------------------------
-   Back half of the orbit
--------------------------------- */
+    Back half of the orbit
+  -------------------------------- */
 
   .preview-ring-back {
     z-index: 1;
@@ -643,8 +665,8 @@
   }
 
   /* --------------------------------
-   Front half of the orbit
--------------------------------- */
+    Front half of the orbit
+  -------------------------------- */
 
   .preview-ring-front {
     z-index: 5;
@@ -655,8 +677,8 @@
   }
 
   /* --------------------------------
-   Small moving energy point
--------------------------------- */
+    Small moving energy point
+  -------------------------------- */
 
   .preview-ring-front::after {
     content: '';
@@ -817,8 +839,8 @@
   }
 
   /* --------------------------------
-   Tablet
--------------------------------- */
+    Tablet
+  -------------------------------- */
 
   @media (max-width: 1000px) {
     .work {
@@ -839,8 +861,8 @@
   }
 
   /* --------------------------------
-   Mobile
--------------------------------- */
+    Mobile
+  -------------------------------- */
 
   @media (max-width: 800px) {
     .work {
@@ -858,8 +880,8 @@
     }
   }
   /* --------------------------------
-   Project 03 — order lifecycle
--------------------------------- */
+    Project 03 — order lifecycle
+  -------------------------------- */
 
   .lifecycle-preview {
     position: relative;
@@ -1097,13 +1119,14 @@
     position: absolute;
 
     left: 25px;
-    bottom: 18px;
+    right: 25px;
+    bottom: 64px;
 
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
 
-    max-width: 65%;
+    max-width: none;
   }
 
   .lifecycle-stack span {
@@ -1130,6 +1153,26 @@
     font-size: 0.65rem;
     font-weight: 700;
     letter-spacing: 0.15em;
+  }
+
+  /* --------------------------------
+   Project 03 — Tablet footer
+-------------------------------- */
+
+  @media (max-width: 1000px) and (min-width: 801px) {
+    .lifecycle-preview {
+      min-height: 320px;
+    }
+
+    .lifecycle-stack {
+      left: 25px;
+      right: 25px;
+      bottom: 64px;
+
+      max-width: none;
+
+      gap: 8px;
+    }
   }
 
   .project:hover .lifecycle-preview {
@@ -1171,8 +1214,8 @@
   }
 
   /* --------------------------------
-   Project 03 — Mobile lifecycle
--------------------------------- */
+    Project 03 — Mobile lifecycle
+  -------------------------------- */
 
   @media (max-width: 600px) {
     .lifecycle-preview {
@@ -1225,7 +1268,7 @@
     .lifecycle-stack {
       left: 20px;
       right: 20px;
-      bottom: 52px;
+      bottom: 64px;
 
       max-width: none;
 
@@ -1236,15 +1279,6 @@
       padding: 5px 7px;
 
       font-size: 0.5rem;
-    }
-
-    .lifecycle-label {
-      left: 20px;
-      right: auto;
-      bottom: 18px;
-
-      font-size: 0.55rem;
-      letter-spacing: 0.12em;
     }
   }
 </style>
