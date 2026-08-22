@@ -235,7 +235,24 @@ h6 {
   body .site-main .contact-inner {
     margin-left: max(
       var(--page-padding),
-      calc((100vw - var(--content-width)) / 2 - 120px)
+      calc(
+        (100vw - var(--content-width)) / 2
+        - var(--desktop-content-offset)
+      )
+    );
+
+    margin-right: auto;
+  }
+}@media (min-width: 1400px) {
+  body .site-main .hero,
+  body .site-main .about-inner,
+  body .site-main .skills-inner,
+  body .site-main .work-inner,
+  body .site-main .experience-inner,
+  body .site-main .contact-inner {
+    margin-left: max(
+      var(--page-padding),
+      calc((100vw - var(--content-width)) / 2 - 40px)
     );
 
     margin-right: auto;
