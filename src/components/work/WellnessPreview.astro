@@ -1,0 +1,449 @@
+<div class='browser-preview'>
+  <div class='browser-bar'>
+    <span></span>
+    <span></span>
+    <span></span>
+    <div class='browser-address'>cowpercottagewellness.com.au</div>
+  </div>
+
+  <div class='browser-screen'>
+    <div class='browser-heartbeat'>
+      <span class='heartbeat-label'>WELLNESS · MOVEMENT · BALANCE</span>
+
+      <div
+        class='heartbeat-viewport'
+        aria-hidden='true'>
+        <div class='heartbeat-track'>
+          <svg
+            class='heartbeat-svg'
+            viewBox='0 0 620 80'
+            preserveAspectRatio='none'>
+            <path
+              class='heartbeat-line'
+              d='M0 40 H60 L86 40 L112 25 L142 55 L174 40 H370 L398 40 L424 21 L454 59 L488 40 H620'>
+            </path>
+          </svg>
+
+          <svg
+            class='heartbeat-svg'
+            viewBox='0 0 620 80'
+            preserveAspectRatio='none'>
+            <path
+              class='heartbeat-line'
+              d='M0 40 H60 L86 40 L112 25 L142 55 L174 40 H370 L398 40 L424 21 L454 59 L488 40 H620'>
+            </path>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class='browser-columns'>
+      <div class='browser-card'>
+        <span
+          class='browser-card-icon wellness-mark'
+          aria-hidden='true'>
+        </span>
+        <span class='browser-card-label'>Wellness</span>
+      </div>
+
+      <div class='browser-card'>
+        <span
+          class='browser-card-icon booking-mark'
+          aria-hidden='true'>
+        </span>
+        <span class='browser-card-label'>Booking</span>
+      </div>
+
+      <div class='browser-card'>
+        <span
+          class='browser-card-icon payment-mark'
+          aria-hidden='true'>
+        </span>
+        <span class='browser-card-label'>Payment</span>
+      </div>
+    </div>
+
+    <div class='preview-info'>
+      <span class='preview-label'>PROJECT 02</span>
+      <span class='preview-title'>COWPER COTTAGE WELLNESS</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .browser-preview {
+    position: relative;
+    grid-column: 1 / -1;
+    min-height: 300px;
+    margin-top: 40px;
+    border: 1px solid rgb(91 206 250 / 28%);
+    border-radius: 4px;
+    overflow: hidden;
+    background:
+      radial-gradient(
+        circle at 75% 30%,
+        rgb(74 144 226 / 13%),
+        transparent 42%
+      ),
+      linear-gradient(135deg, #0b1420 0%, #071019 55%, #080d14 100%);
+    box-shadow:
+      inset 0 0 50px rgb(91 206 250 / 5%),
+      0 0 30px rgb(74 144 226 / 5%);
+    transition:
+      border-color 0.6s ease,
+      transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 0.6s ease;
+  }
+
+  .browser-bar {
+    height: 42px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 0 15px;
+    border-bottom: 1px solid rgb(91 206 250 / 20%);
+    background: #101a27;
+  }
+
+  .browser-address {
+    flex: 1;
+    margin-left: 10px;
+    color: #687585;
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+  }
+
+  .browser-screen {
+    position: relative;
+    min-height: 258px;
+    padding: 45px 45px 90px;
+    transition:
+      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.8s ease;
+  }
+
+  .browser-heartbeat {
+    margin-bottom: 30px;
+  }
+
+  .heartbeat-label {
+    display: block;
+    color: rgb(91 206 250 / 82%);
+    font-size: 0.56rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .heartbeat-viewport {
+    position: relative;
+    margin-top: 18px;
+    overflow: hidden;
+    border-top: 1px solid rgb(91 206 250 / 10%);
+    border-bottom: 1px solid rgb(91 206 250 / 10%);
+    background: linear-gradient(
+      90deg,
+      rgb(91 206 250 / 2%),
+      rgb(74 144 226 / 7%),
+      rgb(91 206 250 / 2%)
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      black 6%,
+      black 94%,
+      transparent 100%
+    );
+  }
+
+  .heartbeat-track {
+    display: flex;
+    width: 200%;
+    will-change: transform;
+    animation: heartbeatScroll 9s linear infinite;
+  }
+
+  .heartbeat-svg {
+    flex: 0 0 50%;
+    width: 50%;
+    height: 74px;
+    overflow: visible;
+  }
+
+  .heartbeat-line {
+    fill: none;
+    stroke: var(--color-cyan);
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 4px rgb(91 206 250 / 45%))
+      drop-shadow(0 0 10px rgb(74 144 226 / 18%));
+  }
+
+  @keyframes heartbeatScroll {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  .browser-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 35px;
+  }
+
+  .browser-card {
+    min-height: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: 1px solid rgb(91 206 250 / 22%);
+    background: linear-gradient(
+      145deg,
+      rgb(91 206 250 / 10%),
+      rgb(74 144 226 / 5%)
+    );
+    box-shadow: inset 0 0 20px rgb(91 206 250 / 3%);
+    transition:
+      transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 0.45s ease,
+      background 0.45s ease,
+      box-shadow 0.45s ease;
+  }
+
+  .browser-card-label {
+    color: #9ba7b5;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .browser-card-icon {
+    position: relative;
+    display: block;
+    width: 36px;
+    height: 30px;
+    color: var(--color-cyan);
+  }
+
+  .wellness-mark::before,
+  .wellness-mark::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    width: 13px;
+    height: 20px;
+    border: 1px solid rgb(91 206 250 / 65%);
+  }
+
+  .wellness-mark::before {
+    left: 6px;
+    border-radius: 13px 2px 13px 2px;
+    transform: rotate(-32deg);
+  }
+
+  .wellness-mark::after {
+    right: 6px;
+    border-radius: 2px 13px 2px 13px;
+    transform: rotate(32deg);
+  }
+
+  .booking-mark {
+    width: 32px;
+    height: 28px;
+    border: 1px solid rgb(91 206 250 / 65%);
+    border-radius: 3px;
+    background:
+      linear-gradient(to bottom, rgb(91 206 250 / 18%) 0 7px, transparent 7px),
+      linear-gradient(
+        90deg,
+        transparent 32%,
+        rgb(91 206 250 / 18%) 32% 35%,
+        transparent 35% 65%,
+        rgb(91 206 250 / 18%) 65% 68%,
+        transparent 68%
+      );
+  }
+
+  .booking-mark::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    right: 5px;
+    top: 15px;
+    height: 1px;
+    background: rgb(91 206 250 / 30%);
+  }
+
+  .payment-mark {
+    width: 36px;
+    height: 24px;
+    margin-top: 2px;
+    border: 1px solid rgb(91 206 250 / 65%);
+    border-radius: 3px;
+  }
+
+  .payment-mark::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 6px;
+    height: 4px;
+    background: rgb(91 206 250 / 22%);
+  }
+
+  .payment-mark::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    bottom: 5px;
+    width: 9px;
+    height: 3px;
+    border-radius: 1px;
+    background: rgb(91 206 250 / 55%);
+  }
+
+  .preview-info {
+    position: absolute;
+    left: 20px;
+    bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 3;
+  }
+
+  .preview-label {
+    color: var(--color-cyan);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+  }
+
+  .preview-title {
+    color: var(--color-text-muted);
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  :global(.project-browser:hover) .browser-preview {
+    border-color: rgb(91 206 250 / 35%);
+    box-shadow:
+      inset 0 0 60px rgb(91 206 250 / 5%),
+      0 0 30px rgb(91 206 250 / 5%);
+  }
+
+  :global(.project-browser:hover) .heartbeat-line {
+    stroke-width: 2.8;
+    opacity: 1;
+    filter: drop-shadow(0 0 6px rgb(91 206 250 / 60%))
+      drop-shadow(0 0 14px rgb(74 144 226 / 28%));
+  }
+
+  :global(.project-browser:hover) .browser-card {
+    transform: translateY(-4px);
+    border-color: rgb(91 206 250 / 38%);
+    background: linear-gradient(
+      145deg,
+      rgb(91 206 250 / 14%),
+      rgb(74 144 226 / 8%)
+    );
+    box-shadow:
+      inset 0 0 24px rgb(91 206 250 / 5%),
+      0 8px 24px rgb(0 0 0 / 18%);
+  }
+
+  :global(.project-browser:hover) .browser-card-icon {
+    filter: drop-shadow(0 0 5px rgb(91 206 250 / 45%));
+  }
+
+  :global(.project-browser:hover) .browser-screen {
+    transform: translateY(-4px);
+  }
+
+  @media (hover: none) and (pointer: coarse) {
+    .browser-card {
+      animation: browserCardFloat 4.5s ease-in-out infinite;
+    }
+    .browser-card:nth-child(2) {
+      animation-delay: 0.7s;
+    }
+    .browser-card:nth-child(3) {
+      animation-delay: 1.4s;
+    }
+    .browser-card-icon {
+      animation: browserIconGlow 4.5s ease-in-out infinite;
+    }
+    .browser-card:nth-child(2) .browser-card-icon {
+      animation-delay: 0.7s;
+    }
+    .browser-card:nth-child(3) .browser-card-icon {
+      animation-delay: 1.4s;
+    }
+  }
+
+  @keyframes browserCardFloat {
+    0%,
+    100% {
+      transform: translateY(0);
+      border-color: rgb(91 206 250 / 22%);
+    }
+    50% {
+      transform: translateY(-3px);
+      border-color: rgb(91 206 250 / 38%);
+    }
+  }
+
+  @keyframes browserIconGlow {
+    0%,
+    100% {
+      filter: none;
+    }
+    50% {
+      filter: drop-shadow(0 0 5px rgb(91 206 250 / 45%));
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .heartbeat-track {
+      animation-duration: 10.5s;
+    }
+    .heartbeat-svg {
+      height: 66px;
+    }
+  }
+
+  @media (max-width: 800px) {
+    .browser-screen {
+      padding: 34px 28px 90px;
+    }
+    .browser-columns {
+      grid-template-columns: 1fr;
+    }
+    .heartbeat-track {
+      animation-duration: 11s;
+    }
+    .heartbeat-svg {
+      height: 60px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .heartbeat-track,
+    .browser-card,
+    .browser-card-icon {
+      animation: none !important;
+    }
+  }
+</style>
