@@ -4,9 +4,22 @@ import Header from '../components/Header.astro';
 
 interface Props {
   title?: string;
+  description?: string;
+  image?: string;
 }
 
-const {title = 'Stuart McDonnell — Web Developer'} = Astro.props;
+const {
+  title = 'Stuart McDonnell — Web Developer, Designer & Technologist',
+  description = 'Portfolio of Stuart McDonnell — web developer, designer and technology specialist creating accessible, responsive and engaging digital experiences.',
+  image = 'og-image.png',
+} = Astro.props;
+
+const canonicalURL = Astro.url;
+
+const socialImageURL = new URL(
+  `${import.meta.env.BASE_URL}${image}`,
+  Astro.site,
+);
 ---
 
 <!doctype html>
@@ -23,7 +36,87 @@ const {title = 'Stuart McDonnell — Web Developer'} = Astro.props;
 
     <meta
       name='description'
-      content='Stuart McDonnell — web developer, designer and technology specialist.'
+      content={description}
+    />
+
+    <link
+      rel='canonical'
+      href={canonicalURL}
+    />
+
+    <meta
+      name='robots'
+      content='index, follow'
+    />
+
+    <!-- Open Graph -->
+
+    <meta
+      property='og:type'
+      content='website'
+    />
+
+    <meta
+      property='og:title'
+      content={title}
+    />
+
+    <meta
+      property='og:description'
+      content={description}
+    />
+
+    <meta
+      property='og:url'
+      content={canonicalURL}
+    />
+
+    <meta
+      property='og:image'
+      content={socialImageURL}
+    />
+
+    <meta
+      property='og:site_name'
+      content='Stuart McDonnell'
+    />
+
+    <!-- Twitter / X -->
+
+    <meta
+      name='twitter:card'
+      content='summary_large_image'
+    />
+
+    <meta
+      name='twitter:title'
+      content={title}
+    />
+
+    <meta
+      name='twitter:description'
+      content={description}
+    />
+
+    <meta
+      name='twitter:image'
+      content={socialImageURL}
+    />
+
+    <meta
+      name='theme-color'
+      content='#05070b'
+    />
+
+    <link
+      rel='icon'
+      type='image/svg+xml'
+      href={`${import.meta.env.BASE_URL}favicon.svg`}
+    />
+
+    <link
+      rel='alternate icon'
+      href={`${import.meta.env.BASE_URL}favicon.ico`}
     />
   </head>
 
@@ -58,6 +151,11 @@ const {title = 'Stuart McDonnell — Web Developer'} = Astro.props;
           revealObserver.observe(element);
         });
       });
+    </script>
+    <script
+      data-goatcounter='https://praxidike6.goatcounter.com/count'
+      async
+      src='https://gc.zgo.at/count.js'>
     </script>
   </body>
 </html>

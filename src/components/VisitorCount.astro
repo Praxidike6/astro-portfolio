@@ -1,0 +1,95 @@
+<span
+  class='visitor-count-shell'
+  aria-label='Visitor count'>
+  <span class='visitor-count-label'>VISITS</span>
+
+  <span
+    id='visitor-count'
+    class='visitor-count'>
+  </span>
+</span>
+
+<style>
+  .visitor-count-shell {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 5px 9px;
+
+    border: 1px solid rgb(91 206 250 / 12%);
+
+    border-radius: 3px;
+
+    background: rgb(91 206 250 / 3%);
+
+    color: var(--color-text-muted);
+
+    font-size: 0.55rem;
+    font-weight: 700;
+
+    letter-spacing: 0.12em;
+
+    transition:
+      border-color 0.3s ease,
+      background 0.3s ease;
+  }
+
+  .visitor-count-shell:hover {
+    border-color: rgb(91 206 250 / 25%);
+
+    background: rgb(91 206 250 / 5%);
+  }
+
+  .visitor-count-label {
+    color: rgb(91 206 250 / 55%);
+  }
+
+  .visitor-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 22px;
+    height: 16px;
+
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  const waitForGoatCounter = window.setInterval(() => {
+    if (window.goatcounter && window.goatcounter.visit_count) {
+      window.clearInterval(waitForGoatCounter);
+
+      window.goatcounter.visit_count({
+        append: '#visitor-count',
+        type: 'svg',
+        path: 'TOTAL',
+        no_branding: true,
+
+        style: `
+          #gcvc-border {
+            fill: transparent;
+            stroke: transparent;
+          }
+
+          #gcvc {
+            fill: #5bcefa;
+            font-family: sans-serif;
+            font-weight: 700;
+          }
+
+          #gcvc-for,
+          #gcvc-by {
+            display: none;
+          }
+
+          #gcvc-views {
+            fill: #5bcefa;
+          }
+        `,
+      });
+    }
+  }, 100);
+</script>
