@@ -10,12 +10,36 @@ interface Props {
 
 const {
   title = 'Stuart McDonnell — Web Developer, Designer & Technologist',
-  description = 'Portfolio of Stuart McDonnell — web developer, designer and technology specialist creating accessible, responsive and engaging digital experiences.',
+  description =
+    'Portfolio of Stuart McDonnell — web developer, designer and technology specialist creating accessible, responsive and engaging digital experiences.',
   image = '/og-image.png',
 } = Astro.props;
 
 const canonicalURL = Astro.url;
 const socialImageURL = new URL(image, Astro.site);
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Stuart McDonnell',
+  url: 'https://www.usethefalseluke.com',
+  jobTitle: 'Web Developer, Designer & Technologist',
+  description,
+  image: socialImageURL.toString(),
+  sameAs: [
+    'https://www.linkedin.com/in/stuart-mcdonnell-762955166',
+  ],
+  knowsAbout: [
+    'Web Development',
+    'JavaScript',
+    'TypeScript',
+    'React',
+    'Astro',
+    'WordPress',
+    'Accessibility',
+    'Responsive Web Design',
+  ],
+};
 ---
 
 <!doctype html>
@@ -119,6 +143,8 @@ const socialImageURL = new URL(image, Astro.site);
       content='#05070b'
     />
 
+    <!-- Favicons -->
+
     <link
       rel='icon'
       type='image/svg+xml'
@@ -129,6 +155,13 @@ const socialImageURL = new URL(image, Astro.site);
       rel='alternate icon'
       href={`${import.meta.env.BASE_URL}favicon.ico`}
     />
+
+    <!-- Structured data -->
+
+    <script
+      type='application/ld+json'
+      set:html={JSON.stringify(structuredData)}>
+    </script>
   </head>
 
   <body id='top'>
@@ -140,23 +173,25 @@ const socialImageURL = new URL(image, Astro.site);
 
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        const revealElements = document.querySelectorAll('.reveal');
+        const revealElements =
+          document.querySelectorAll('.reveal');
 
         if (!revealElements.length) return;
 
-        const revealObserver = new IntersectionObserver(
-          (entries, observer) => {
-            entries.forEach((entry) => {
-              if (!entry.isIntersecting) return;
+        const revealObserver =
+          new IntersectionObserver(
+            (entries, observer) => {
+              entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
 
-              entry.target.classList.add('visible');
-              observer.unobserve(entry.target);
-            });
-          },
-          {
-            threshold: 0.15,
-          },
-        );
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+              });
+            },
+            {
+              threshold: 0.15,
+            },
+          );
 
         revealElements.forEach((element) => {
           revealObserver.observe(element);
