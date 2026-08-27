@@ -42,7 +42,7 @@
   }
 
   .visitor-count-label {
-    color: rgb(91 206 250 / 55%);
+    color: rgb(91 206 250 / 85%);
   }
 
   .visitor-count {
@@ -90,6 +90,32 @@
           }
         `,
       });
+      const addCounterAltText = () => {
+        const counterImage =
+          document.querySelector<HTMLImageElement>('#visitor-count img');
+
+        if (!counterImage) return false;
+
+        counterImage.alt = 'Total site visits';
+        return true;
+      };
+
+      if (!addCounterAltText()) {
+        const counterObserver = new MutationObserver(() => {
+          if (addCounterAltText()) {
+            counterObserver.disconnect();
+          }
+        });
+
+        const visitorCount = document.querySelector('#visitor-count');
+
+        if (visitorCount) {
+          counterObserver.observe(visitorCount, {
+            childList: true,
+            subtree: true,
+          });
+        }
+      }
     }
   }, 100);
 </script>
