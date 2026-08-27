@@ -12,5 +12,8 @@ export default defineConfig({
         sitemap(),
     ],
 
+    build: {
+        inlineStylesheets: 'always',
+    },
 });
 
