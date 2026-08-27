@@ -11,15 +11,11 @@ interface Props {
 const {
   title = 'Stuart McDonnell — Web Developer, Designer & Technologist',
   description = 'Portfolio of Stuart McDonnell — web developer, designer and technology specialist creating accessible, responsive and engaging digital experiences.',
-  image = 'og-image.png',
+  image = '/og-image.png',
 } = Astro.props;
 
 const canonicalURL = Astro.url;
-
-const socialImageURL = new URL(
-  `${import.meta.env.BASE_URL}${image}`,
-  Astro.site,
-);
+const socialImageURL = new URL(image, Astro.site);
 ---
 
 <!doctype html>
@@ -77,8 +73,18 @@ const socialImageURL = new URL(
     />
 
     <meta
+      property='og:image:alt'
+      content='Stuart McDonnell — Web Developer, Designer and Technologist'
+    />
+
+    <meta
       property='og:site_name'
       content='Stuart McDonnell'
+    />
+
+    <meta
+      property='og:locale'
+      content='en_AU'
     />
 
     <!-- Twitter / X -->
@@ -101,6 +107,11 @@ const socialImageURL = new URL(
     <meta
       name='twitter:image'
       content={socialImageURL}
+    />
+
+    <meta
+      name='twitter:image:alt'
+      content='Stuart McDonnell — Web Developer, Designer and Technologist'
     />
 
     <meta
@@ -152,6 +163,7 @@ const socialImageURL = new URL(
         });
       });
     </script>
+
     <script
       data-goatcounter='https://praxidike6.goatcounter.com/count'
       async
