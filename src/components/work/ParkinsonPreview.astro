@@ -1,58 +1,70 @@
-<div class='project-content'>
-  <h3>Watch Your Step</h3>
+---
+import ProjectCard from './ProjectCard.astro';
 
-  <p class='project-description'>
-    A complete website redevelopment for an author living with Parkinson's,
-    bringing his book, supporting resources and social media into a single
-    accessible online presence. The redesign focused on clearer navigation,
-    stronger presentation across devices and making it easier for visitors to
-    discover the book and related content.
-  </p>
+interface Props {
+  number: string;
+}
 
-  <div class='project-tags'>
-    <span>Wix</span>
-    <span>JavaScript</span>
-    <span>HTML/CSS</span>
-    <span>Social Media</span>
+const {number} = Astro.props;
+---
+
+<ProjectCard number={number}>
+  <div class='project-content'>
+    <h3>Watch Your Step</h3>
+
+    <p class='project-description'>
+      A complete website redevelopment for an author living with Parkinson's,
+      bringing his book, supporting resources and social media into a single
+      accessible online presence. The redesign focused on clearer navigation,
+      stronger presentation across devices and making it easier for visitors to
+      discover the book and related content.
+    </p>
+
+    <div class='project-tags'>
+      <span>Wix</span>
+      <span>JavaScript</span>
+      <span>HTML/CSS</span>
+      <span>Social Media</span>
+    </div>
+
+    <div class='project-meta'>
+      <span>WEB DEVELOPMENT</span>
+      <span>2026</span>
+      <span>CLIENT PROJECT</span>
+    </div>
+
+    <a
+      href='https://www.watchyourstep.com.au'
+      class='project-link'
+      target='_blank'
+      rel='noopener noreferrer'>
+      View project →
+    </a>
   </div>
+  <div class='project-preview'>
+    <div class='preview-grid'></div>
 
-  <div class='project-meta'>
-    <span>WEB DEVELOPMENT</span>
-    <span>2026</span>
-    <span>CLIENT PROJECT</span>
+    <div class='preview-particles'>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <div class='preview-orbit'>
+      <div class='preview-orb'></div>
+      <div class='preview-ring preview-ring-back'></div>
+      <div class='preview-ring preview-ring-front'></div>
+    </div>
+
+    <div class='preview-info'>
+      <span class='preview-label'>PROJECT 01</span>
+      <span class='preview-title'>WATCH YOUR STEP</span>
+    </div>
   </div>
-
-  <a
-    href='https://www.watchyourstep.com.au'
-    class='project-link'
-    target='_blank'
-    rel='noopener noreferrer'>
-    View project →
-  </a>
-</div>
-<div class='project-preview'>
-  <div class='preview-grid'></div>
-
-  <div class='preview-particles'>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-
-  <div class='preview-orbit'>
-    <div class='preview-orb'></div>
-    <div class='preview-ring preview-ring-back'></div>
-    <div class='preview-ring preview-ring-front'></div>
-  </div>
-
-  <div class='preview-info'>
-    <span class='preview-label'>PROJECT 01</span>
-    <span class='preview-title'>WATCH YOUR STEP</span>
-  </div>
-</div>
+</ProjectCard>
 
 <style>
   .project-content h3 {

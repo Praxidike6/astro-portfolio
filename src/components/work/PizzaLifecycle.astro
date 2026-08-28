@@ -1,93 +1,106 @@
-<div class='project-content'>
-  <h3>React Fast Pizza</h3>
+---
+import ProjectCard from './ProjectCard.astro';
+interface Props {
+  number: string;
+}
 
-  <p class='project-description'>
-    A React-based pizza ordering application that demonstrates a complete
-    customer journey from menu browsing through checkout and order tracking. The
-    project combines live API data, Redux-powered cart management,
-    geolocation-assisted delivery details and client-side routing to create a
-    responsive single-page ordering experience.
-  </p>
+const {number} = Astro.props;
+---
 
-  <div class='project-tags'>
-    <span>React</span>
-    <span>JavaScript</span>
-    <span>Redux</span>
-    <span>React Router</span>
-    <span>Tailwind CSS</span>
-    <span>REST API</span>
-  </div>
+<ProjectCard
+  number={number}
+  variant='project-system'>
+  <div class='project-content'>
+    <h3>React Fast Pizza</h3>
 
-  <div class='project-meta'>
-    <span>REACT DEVELOPMENT</span>
-    <span>2023</span>
-    <span>DEMO PROJECT</span>
-  </div>
+    <p class='project-description'>
+      A React-based pizza ordering application that demonstrates a complete
+      customer journey from menu browsing through checkout and order tracking.
+      The project combines live API data, Redux-powered cart management,
+      geolocation-assisted delivery details and client-side routing to create a
+      responsive single-page ordering experience.
+    </p>
 
-  <a
-    href='https://pizza-menu-app.onrender.com/'
-    class='project-link'
-    target='_blank'
-    rel='noopener noreferrer'>
-    View project →
-  </a>
-</div>
-<div class='lifecycle-preview'>
-  <div class='lifecycle-grid'></div>
-
-  <div class='lifecycle-flow'>
-    <div class='lifecycle-step active'>
-      <span class='lifecycle-dot'></span>
-      <span class='lifecycle-name'>MENU</span>
+    <div class='project-tags'>
+      <span>React</span>
+      <span>JavaScript</span>
+      <span>Redux</span>
+      <span>React Router</span>
+      <span>Tailwind CSS</span>
+      <span>REST API</span>
     </div>
 
-    <div class='lifecycle-connector'></div>
-
-    <div class='lifecycle-step'>
-      <span class='lifecycle-dot'></span>
-      <span class='lifecycle-name'>CART</span>
+    <div class='project-meta'>
+      <span>REACT DEVELOPMENT</span>
+      <span>2023</span>
+      <span>DEMO PROJECT</span>
     </div>
 
-    <div class='lifecycle-connector'></div>
-
-    <div class='lifecycle-step'>
-      <span class='lifecycle-dot'></span>
-      <span class='lifecycle-name'>CHECKOUT</span>
-    </div>
-
-    <div class='lifecycle-connector'></div>
-
-    <div class='lifecycle-step'>
-      <span class='lifecycle-dot'></span>
-      <span class='lifecycle-name'>ORDER</span>
-    </div>
-
-    <div class='lifecycle-connector'></div>
-
-    <div class='lifecycle-step'>
-      <span class='lifecycle-dot'></span>
-      <span class='lifecycle-name'>TRACKING</span>
-    </div>
-
-    <span
-      class='lifecycle-traveler'
-      aria-hidden='true'>
-    </span>
+    <a
+      href='https://pizza-menu-app.onrender.com/'
+      class='project-link'
+      target='_blank'
+      rel='noopener noreferrer'>
+      View project →
+    </a>
   </div>
+  <div class='lifecycle-preview'>
+    <div class='lifecycle-grid'></div>
 
-  <div class='lifecycle-stack'>
-    <span>REACT</span>
-    <span>REACT ROUTER</span>
-    <span>REDUX TOOLKIT</span>
-    <span>REST API</span>
-    <span>GEOLOCATION</span>
-  </div>
+    <div class='lifecycle-flow'>
+      <div class='lifecycle-step active'>
+        <span class='lifecycle-dot'></span>
+        <span class='lifecycle-name'>MENU</span>
+      </div>
 
-  <div class='preview-info'>
-    <span class='preview-label'>PROJECT 03</span>
-    <span class='preview-title'>REACT FAST PIZZA</span>
+      <div class='lifecycle-connector'></div>
+
+      <div class='lifecycle-step'>
+        <span class='lifecycle-dot'></span>
+        <span class='lifecycle-name'>CART</span>
+      </div>
+
+      <div class='lifecycle-connector'></div>
+
+      <div class='lifecycle-step'>
+        <span class='lifecycle-dot'></span>
+        <span class='lifecycle-name'>CHECKOUT</span>
+      </div>
+
+      <div class='lifecycle-connector'></div>
+
+      <div class='lifecycle-step'>
+        <span class='lifecycle-dot'></span>
+        <span class='lifecycle-name'>ORDER</span>
+      </div>
+
+      <div class='lifecycle-connector'></div>
+
+      <div class='lifecycle-step'>
+        <span class='lifecycle-dot'></span>
+        <span class='lifecycle-name'>TRACKING</span>
+      </div>
+
+      <span
+        class='lifecycle-traveler'
+        aria-hidden='true'>
+      </span>
+    </div>
+
+    <div class='lifecycle-stack'>
+      <span>REACT</span>
+      <span>REACT ROUTER</span>
+      <span>REDUX TOOLKIT</span>
+      <span>REST API</span>
+      <span>GEOLOCATION</span>
+    </div>
+
+    <div class='preview-info'>
+      <span class='preview-label'>PROJECT 03</span>
+      <span class='preview-title'>REACT FAST PIZZA</span>
+    </div>
   </div>
-</div>
+</ProjectCard>
 
 <style>
   .project-content h3 {

@@ -1,108 +1,122 @@
-<div class='project-content'>
-  <h3>Cowper Cottage Wellness</h3>
+---
+import ProjectCard from './ProjectCard.astro';
 
-  <p class='project-description'>
-    A complete website development for a wellness business based in Victoria,
-    built around the client's chosen visual identity and designed to make
-    services, online payments and appointment scheduling easier to access. The
-    project focused on creating a calm, professional experience that works
-    clearly across desktop and mobile devices.
-  </p>
+interface Props {
+  number: string;
+}
 
-  <div class='project-tags'>
-    <span>Squarespace</span>
-    <span>JavaScript</span>
-    <span>HTML/CSS</span>
-    <span>Payments</span>
-    <span>Scheduling</span>
+const {number} = Astro.props;
+---
+
+<ProjectCard
+  number={number}
+  variant='project-browser'>
+  <div class='project-content'>
+    <h3>Cowper Cottage Wellness</h3>
+
+    <p class='project-description'>
+      A complete website development for a wellness business based in Victoria,
+      built around the client's chosen visual identity and designed to make
+      services, online payments and appointment scheduling easier to access. The
+      project focused on creating a calm, professional experience that works
+      clearly across desktop and mobile devices.
+    </p>
+
+    <div class='project-tags'>
+      <span>Squarespace</span>
+      <span>JavaScript</span>
+      <span>HTML/CSS</span>
+      <span>Payments</span>
+      <span>Scheduling</span>
+    </div>
+
+    <div class='project-meta'>
+      <span>WEB DEVELOPMENT</span>
+      <span>2025</span>
+      <span>CLIENT PROJECT</span>
+    </div>
+
+    <a
+      href='https://www.cowpercottagewellness.com.au/'
+      class='project-link'
+      target='_blank'
+      rel='noopener noreferrer'>
+      View project →
+    </a>
   </div>
 
-  <div class='project-meta'>
-    <span>WEB DEVELOPMENT</span>
-    <span>2025</span>
-    <span>CLIENT PROJECT</span>
-  </div>
+  <div class='browser-preview'>
+    <div class='browser-bar'>
+      <span></span>
+      <span></span>
+      <span></span>
+      <div class='browser-address'>cowpercottagewellness.com.au</div>
+    </div>
 
-  <a
-    href='https://www.cowpercottagewellness.com.au/'
-    class='project-link'
-    target='_blank'
-    rel='noopener noreferrer'>
-    View project →
-  </a>
-</div>
+    <div class='browser-screen'>
+      <div class='browser-heartbeat'>
+        <span class='heartbeat-label'>WELLNESS · MOVEMENT · BALANCE</span>
 
-<div class='browser-preview'>
-  <div class='browser-bar'>
-    <span></span>
-    <span></span>
-    <span></span>
-    <div class='browser-address'>cowpercottagewellness.com.au</div>
-  </div>
+        <div
+          class='heartbeat-viewport'
+          aria-hidden='true'>
+          <div class='heartbeat-track'>
+            <svg
+              class='heartbeat-svg'
+              viewBox='0 0 620 80'
+              preserveAspectRatio='none'>
+              <path
+                class='heartbeat-line'
+                d='M0 40 H60 L86 40 L112 25 L142 55 L174 40 H370 L398 40 L424 21 L454 59 L488 40 H620'>
+              </path>
+            </svg>
 
-  <div class='browser-screen'>
-    <div class='browser-heartbeat'>
-      <span class='heartbeat-label'>WELLNESS · MOVEMENT · BALANCE</span>
-
-      <div
-        class='heartbeat-viewport'
-        aria-hidden='true'>
-        <div class='heartbeat-track'>
-          <svg
-            class='heartbeat-svg'
-            viewBox='0 0 620 80'
-            preserveAspectRatio='none'>
-            <path
-              class='heartbeat-line'
-              d='M0 40 H60 L86 40 L112 25 L142 55 L174 40 H370 L398 40 L424 21 L454 59 L488 40 H620'>
-            </path>
-          </svg>
-
-          <svg
-            class='heartbeat-svg'
-            viewBox='0 0 620 80'
-            preserveAspectRatio='none'>
-            <path
-              class='heartbeat-line'
-              d='M0 40 H60 L86 40 L112 25 L142 55 L174 40 H370 L398 40 L424 21 L454 59 L488 40 H620'>
-            </path>
-          </svg>
+            <svg
+              class='heartbeat-svg'
+              viewBox='0 0 620 80'
+              preserveAspectRatio='none'>
+              <path
+                class='heartbeat-line'
+                d='M0 40 H60 L86 40 L112 25 L142 55 L174 40 H370 L398 40 L424 21 L454 59 L488 40 H620'>
+              </path>
+            </svg>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class='browser-columns'>
-      <div class='browser-card'>
-        <span
-          class='browser-card-icon wellness-mark'
-          aria-hidden='true'>
-        </span>
-        <span class='browser-card-label'>Wellness</span>
+      <div class='browser-columns'>
+        <div class='browser-card'>
+          <span
+            class='browser-card-icon wellness-mark'
+            aria-hidden='true'>
+          </span>
+          <span class='browser-card-label'>Wellness</span>
+        </div>
+
+        <div class='browser-card'>
+          <span
+            class='browser-card-icon booking-mark'
+            aria-hidden='true'>
+          </span>
+          <span class='browser-card-label'>Booking</span>
+        </div>
+
+        <div class='browser-card'>
+          <span
+            class='browser-card-icon payment-mark'
+            aria-hidden='true'>
+          </span>
+          <span class='browser-card-label'>Payment</span>
+        </div>
       </div>
 
-      <div class='browser-card'>
-        <span
-          class='browser-card-icon booking-mark'
-          aria-hidden='true'>
-        </span>
-        <span class='browser-card-label'>Booking</span>
+      <div class='preview-info'>
+        <span class='preview-label'>PROJECT 02</span>
+        <span class='preview-title'>COWPER COTTAGE WELLNESS</span>
       </div>
-
-      <div class='browser-card'>
-        <span
-          class='browser-card-icon payment-mark'
-          aria-hidden='true'>
-        </span>
-        <span class='browser-card-label'>Payment</span>
-      </div>
-    </div>
-
-    <div class='preview-info'>
-      <span class='preview-label'>PROJECT 02</span>
-      <span class='preview-title'>COWPER COTTAGE WELLNESS</span>
     </div>
   </div>
-</div>
+</ProjectCard>
 
 <style>
   .project-content h3 {
