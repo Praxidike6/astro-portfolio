@@ -27,7 +27,7 @@
 
     font-size: 0.55rem;
     font-weight: 700;
-
+    line-height: 1;
     letter-spacing: 0.12em;
 
     transition:
@@ -50,71 +50,103 @@
     align-items: center;
     justify-content: center;
 
-    width: 22px;
-    height: 16px;
+    width: 28px;
+    height: 20px;
 
     overflow: hidden;
+  }
+
+  :global(.visitor-count img) {
+    display: block;
+
+    width: 64px;
+    height: 20px;
+    max-width: none;
+
+    flex: 0 0 auto;
+
+    transform: translateY(-3px);
   }
 </style>
 
 <script>
+  interface GoatCounter {
+    visit_count?: (options: {
+      append: string;
+      type?: 'html' | 'svg' | 'png';
+      path?: string;
+      no_branding?: boolean;
+      style?: string;
+    }) => void;
+  }
+
+  declare global {
+    interface Window {
+      goatcounter?: GoatCounter;
+    }
+  }
+
   const waitForGoatCounter = window.setInterval(() => {
-    if (window.goatcounter && window.goatcounter.visit_count) {
-      window.clearInterval(waitForGoatCounter);
+    const goatcounter = window.goatcounter;
 
-      window.goatcounter.visit_count({
-        append: '#visitor-count',
-        type: 'svg',
-        path: 'TOTAL',
-        no_branding: true,
+    if (!goatcounter?.visit_count) return;
 
-        style: `
-          #gcvc-border {
-            fill: transparent;
-            stroke: transparent;
-          }
+    window.clearInterval(waitForGoatCounter);
 
-          #gcvc {
-            fill: #5bcefa;
-            font-family: sans-serif;
-            font-weight: 700;
-          }
+    goatcounter.visit_count({
+      append: '#visitor-count',
+      type: 'svg',
+      path: 'TOTAL',
+      no_branding: true,
 
-          #gcvc-for,
-          #gcvc-by {
-            display: none;
-          }
-
-          #gcvc-views {
-            fill: #5bcefa;
-          }
-        `,
-      });
-      const addCounterAltText = () => {
-        const counterImage =
-          document.querySelector<HTMLImageElement>('#visitor-count img');
-
-        if (!counterImage) return false;
-
-        counterImage.alt = 'Total site visits';
-        return true;
-      };
-
-      if (!addCounterAltText()) {
-        const counterObserver = new MutationObserver(() => {
-          if (addCounterAltText()) {
-            counterObserver.disconnect();
-          }
-        });
-
-        const visitorCount = document.querySelector('#visitor-count');
-
-        if (visitorCount) {
-          counterObserver.observe(visitorCount, {
-            childList: true,
-            subtree: true,
-          });
+      style: `
+        #gcvc-border {
+          fill: transparent;
+          stroke: transparent;
         }
+
+        #gcvc {
+          fill: #5bcefa;
+          font-family: sans-serif;
+          font-weight: 700;
+        }
+
+        #gcvc-for,
+        #gcvc-by {
+          display: none;
+        }
+
+        #gcvc-views {
+          fill: #5bcefa;
+        }
+      `,
+    });
+
+    const addCounterAltText = () => {
+      const counterImage =
+        document.querySelector<HTMLImageElement>('#visitor-count img');
+
+      if (!counterImage) return false;
+
+      counterImage.alt = 'Total site visits';
+
+      return true;
+    };
+
+    if (!addCounterAltText()) {
+      const counterObserver = new MutationObserver(() => {
+        if (addCounterAltText()) {
+          counterObserver.disconnect();
+        }
+      });
+
+      const visitorCount = document.querySelector('#visitor-count');
+
+      if (visitorCount) {
+        counterObserver.observe(visitorCount, {
+          childList: true,
+          subtree: true,
+        });
       }
     }
   }, 100);

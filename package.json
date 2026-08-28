@@ -15,7 +15,12 @@
     "@astrojs/sitemap": "^3.7.3",
     "@fontsource/plus-jakarta-sans": "^5.3.0",
     "@fontsource/space-grotesk": "^5.3.0",
+    "@iconify-json/logos": "^1.2.13",
+    "@iconify-json/lucide": "^1.2.126",
+    "@iconify-json/simple-icons": "^1.2.93",
     "animejs": "^4.5.0",
-    "astro": "^7.2.7"
+    "astro": "^7.2.7",
+    "astro-icon": "^1.2.0",
+    "simple-icons": "^16.28.0"
   }
 }
