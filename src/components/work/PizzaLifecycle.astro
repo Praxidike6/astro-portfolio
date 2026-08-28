@@ -20,6 +20,10 @@ const {number} = Astro.props;
       geolocation-assisted delivery details and client-side routing to create a
       responsive single-page ordering experience.
     </p>
+    <p class='project-role'>
+      <span>ROLE</span>
+      React application development · State management · API integration
+    </p>
 
     <div class='project-tags'>
       <span>React</span>
@@ -103,6 +107,27 @@ const {number} = Astro.props;
 </ProjectCard>
 
 <style>
+  .project-role {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    margin: 0 0 25px;
+
+    color: #9ba7b5;
+
+    font-size: 0.72rem;
+    line-height: 1.6;
+    letter-spacing: 0.04em;
+  }
+
+  .project-role span {
+    color: var(--color-cyan);
+
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
   .project-content h3 {
     margin: 0 0 20px;
     font-size: clamp(1.8rem, 3vw, 2.8rem);

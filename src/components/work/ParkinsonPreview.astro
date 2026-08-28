@@ -14,10 +14,14 @@ const {number} = Astro.props;
 
     <p class='project-description'>
       A complete website redevelopment for an author living with Parkinson's,
-      bringing his book, supporting resources and social media into a single
-      accessible online presence. The redesign focused on clearer navigation,
-      stronger presentation across devices and making it easier for visitors to
-      discover the book and related content.
+      created to bring his book, supporting resources and social media into a
+      single accessible online presence. I reworked the structure, navigation
+      and presentation to make the site easier to use across devices and to give
+      visitors a clearer path to discover the book and related content.
+    </p>
+    <p class='project-role'>
+      <span>ROLE</span>
+      Website redevelopment · UX structure · Responsive presentation
     </p>
 
     <div class='project-tags'>
@@ -67,6 +71,27 @@ const {number} = Astro.props;
 </ProjectCard>
 
 <style>
+  .project-role {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    margin: 0 0 25px;
+
+    color: #9ba7b5;
+
+    font-size: 0.72rem;
+    line-height: 1.6;
+    letter-spacing: 0.04em;
+  }
+
+  .project-role span {
+    color: var(--color-cyan);
+
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
   .project-content h3 {
     margin: 0 0 20px;
     font-size: clamp(1.8rem, 3vw, 2.8rem);
