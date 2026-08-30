@@ -2,9 +2,22 @@
 interface Props {
   number: string;
   variant?: string;
+  tags?: string[];
+  type?: string;
+  year?: string;
+  context?: string;
+  href?: string;
 }
 
-const {number, variant = ''} = Astro.props;
+const {
+  number,
+  variant = '',
+  tags = [],
+  type = '',
+  year = '',
+  context = '',
+  href = '',
+} = Astro.props;
 
 const projectClass = ['project', variant].filter(Boolean).join(' ');
 ---
@@ -12,7 +25,43 @@ const projectClass = ['project', variant].filter(Boolean).join(' ');
 <article class={projectClass}>
   <p class='project-number'>{number}</p>
 
-  <slot />
+  <div class='project-content'>
+    <slot name='content' />
+
+    {
+      tags.length > 0 && (
+        <div class='project-tags'>
+          {tags.map((tag) => (
+            <span>{tag}</span>
+          ))}
+        </div>
+      )
+    }
+
+    {
+      (type || year || context) && (
+        <div class='project-meta'>
+          {type && <span>{type}</span>}
+          {year && <span>{year}</span>}
+          {context && <span>{context}</span>}
+        </div>
+      )
+    }
+
+    {
+      href && (
+        <a
+          href={href}
+          class='project-link'
+          target='_blank'
+          rel='noopener noreferrer'>
+          View project →
+        </a>
+      )
+    }
+  </div>
+
+  <slot name='preview' />
 </article>
 
 <style>
@@ -22,18 +71,19 @@ const projectClass = ['project', variant].filter(Boolean).join(' ');
 
     padding: 50px;
 
-    border: 1px solid rgb(91 206 250 / 12%);
-    background: rgb(255 255 255 / 2%);
+    border: 1px solid rgb(91 206 250 / 10%);
+    border-radius: 4px;
+
+    background: rgb(255 255 255 / 1%);
 
     transition:
-      border-color 0.3s ease,
-      transform 0.3s ease,
-      background 0.3s ease;
+      border-color 0.4s ease,
+      background 0.4s ease;
   }
 
   .project:hover {
-    border-color: rgb(91 206 250 / 35%);
-    background: rgb(91 206 250 / 3%);
+    border-color: rgb(91 206 250 / 22%);
+    background: rgb(91 206 250 / 2%);
   }
 
   .project-number {
@@ -41,9 +91,76 @@ const projectClass = ['project', variant].filter(Boolean).join(' ');
 
     color: var(--color-cyan);
 
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  .project-content {
+    min-width: 0;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    margin: 0 0 14px;
+    padding: 14px;
+
+    border: 1px solid rgb(91 206 250 / 12%);
+    border-radius: 4px;
+
+    background: rgb(91 206 250 / 2%);
+  }
+
+  .project-tags span {
+    padding: 6px 10px;
+
+    border: 1px solid rgb(91 206 250 / 22%);
+    border-radius: 3px;
+
+    color: var(--color-cyan);
+
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+
+  .project-meta {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 18px;
+
+    margin: 0 0 24px;
+    padding: 14px;
+
+    border: 1px solid rgb(91 206 250 / 10%);
+    border-radius: 4px;
+
+    background: rgb(255 255 255 / 1%);
+  }
+
+  .project-meta span {
+    color: #9ba7b5;
+
+    font-size: 0.68rem;
+    font-weight: 700;
+    line-height: 1.45;
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
+  }
+
+  .project-link {
+    color: var(--color-cyan);
+
     font-size: 0.75rem;
     font-weight: 700;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
   }
 
   @media (max-width: 1000px) {
@@ -55,8 +172,33 @@ const projectClass = ['project', variant].filter(Boolean).join(' ');
   @media (max-width: 800px) {
     .project {
       grid-template-columns: 1fr;
+
       gap: 25px;
+
       padding: 30px;
+    }
+
+    .project-number {
+      margin: 0;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .project {
+      padding: 24px;
+      gap: 22px;
+    }
+
+    .project-tags {
+      padding: 12px;
+    }
+
+    .project-meta {
+      grid-template-columns: 1fr;
+
+      gap: 10px;
+
+      padding: 12px;
     }
   }
 </style>

@@ -8,8 +8,16 @@ interface Props {
 const {number} = Astro.props;
 ---
 
-<ProjectCard number={number}>
-  <div class='project-content'>
+<ProjectCard
+  number={number}
+  tags={['Wix', 'JavaScript', 'HTML/CSS', 'Social Media']}
+  type='Web Development'
+  year='2026'
+  context='Client Project'
+  href='https://www.watchyourstep.com.au'>
+  <div
+    slot='content'
+    class='project-details'>
     <h3>Watch Your Step</h3>
 
     <p class='project-description'>
@@ -19,33 +27,16 @@ const {number} = Astro.props;
       and presentation to make the site easier to use across devices and to give
       visitors a clearer path to discover the book and related content.
     </p>
+
     <p class='project-role'>
       <span>ROLE</span>
       Website redevelopment · UX structure · Responsive presentation
     </p>
-
-    <div class='project-tags'>
-      <span>Wix</span>
-      <span>JavaScript</span>
-      <span>HTML/CSS</span>
-      <span>Social Media</span>
-    </div>
-
-    <div class='project-meta'>
-      <span>WEB DEVELOPMENT</span>
-      <span>2026</span>
-      <span>CLIENT PROJECT</span>
-    </div>
-
-    <a
-      href='https://www.watchyourstep.com.au'
-      class='project-link'
-      target='_blank'
-      rel='noopener noreferrer'>
-      View project →
-    </a>
   </div>
-  <div class='project-preview'>
+
+  <div
+    slot='preview'
+    class='project-preview'>
     <div class='preview-grid'></div>
 
     <div class='preview-particles'>
@@ -92,51 +83,21 @@ const {number} = Astro.props;
     letter-spacing: 0.12em;
   }
 
-  .project-content h3 {
+  .project-details h3 {
     margin: 0 0 20px;
+
     font-size: clamp(1.8rem, 3vw, 2.8rem);
     letter-spacing: -0.03em;
   }
 
   .project-description {
     max-width: 650px;
+
     margin: 0 0 25px;
+
     color: #9ba7b5;
+
     line-height: 1.8;
-  }
-
-  .project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 30px;
-  }
-
-  .project-tags span {
-    padding: 6px 10px;
-    border: 1px solid rgb(91 206 250 / 20%);
-    border-radius: 3px;
-    color: var(--color-cyan);
-    font-size: 0.7rem;
-    letter-spacing: 0.06em;
-  }
-
-  .project-link {
-    color: var(--color-cyan);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .project-meta {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 25px;
-    color: var(--color-text-muted);
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
   }
 
   .project-preview {
@@ -202,30 +163,35 @@ const {number} = Astro.props;
   .preview-particles span:nth-child(2) {
     top: 35%;
     left: 70%;
+
     animation-delay: 0.5s;
   }
 
   .preview-particles span:nth-child(3) {
     top: 65%;
     left: 25%;
+
     animation-delay: 1s;
   }
 
   .preview-particles span:nth-child(4) {
     top: 72%;
     left: 72%;
+
     animation-delay: 1.5s;
   }
 
   .preview-particles span:nth-child(5) {
     top: 18%;
     left: 55%;
+
     animation-delay: 2s;
   }
 
   .preview-particles span:nth-child(6) {
     top: 78%;
     left: 48%;
+
     animation-delay: 2.5s;
   }
 

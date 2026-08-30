@@ -335,27 +335,66 @@ const skillGroups = [
 
   @media (max-width: 1000px) {
     .skills {
-      padding: 80px var(--page-padding);
+      padding: 100px var(--page-padding);
     }
 
     .section-heading {
       margin-bottom: 50px;
     }
-  }
 
-  @media (max-width: 800px) {
     .skills-grid {
-      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .skill-group {
+      padding: 26px;
     }
   }
 
-  @media (max-width: 500px) {
+  @media (max-width: 800px) {
+    .skills {
+      padding: 80px var(--page-padding);
+    }
+
+    .skills-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .skill-group ul {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 560px) {
+    .skills {
+      padding: 70px var(--page-padding);
+    }
+
+    .section-heading {
+      gap: 14px;
+      margin-bottom: 38px;
+    }
+
     .skill-group {
-      padding: 24px;
+      padding: 22px;
+    }
+
+    .skill-group h3 {
+      margin-bottom: 18px;
     }
 
     .skill-group ul {
       grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .skill-item {
+      padding: 10px 12px;
+    }
+
+    .skill-name {
+      white-space: normal;
     }
   }
 

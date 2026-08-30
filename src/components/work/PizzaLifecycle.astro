@@ -1,5 +1,6 @@
 ---
 import ProjectCard from './ProjectCard.astro';
+
 interface Props {
   number: string;
 }
@@ -9,8 +10,22 @@ const {number} = Astro.props;
 
 <ProjectCard
   number={number}
-  variant='project-system'>
-  <div class='project-content'>
+  variant='project-system'
+  tags={[
+    'React',
+    'JavaScript',
+    'Redux',
+    'React Router',
+    'Tailwind CSS',
+    'REST API',
+  ]}
+  type='React Development'
+  year='2023'
+  context='Demo Project'
+  href='https://pizza-menu-app.onrender.com/'>
+  <div
+    slot='content'
+    class='project-details'>
     <h3>React Fast Pizza</h3>
 
     <p class='project-description'>
@@ -20,35 +35,16 @@ const {number} = Astro.props;
       geolocation-assisted delivery details and client-side routing to create a
       responsive single-page ordering experience.
     </p>
+
     <p class='project-role'>
       <span>ROLE</span>
       React application development · State management · API integration
     </p>
-
-    <div class='project-tags'>
-      <span>React</span>
-      <span>JavaScript</span>
-      <span>Redux</span>
-      <span>React Router</span>
-      <span>Tailwind CSS</span>
-      <span>REST API</span>
-    </div>
-
-    <div class='project-meta'>
-      <span>REACT DEVELOPMENT</span>
-      <span>2023</span>
-      <span>DEMO PROJECT</span>
-    </div>
-
-    <a
-      href='https://pizza-menu-app.onrender.com/'
-      class='project-link'
-      target='_blank'
-      rel='noopener noreferrer'>
-      View project →
-    </a>
   </div>
-  <div class='lifecycle-preview'>
+
+  <div
+    slot='preview'
+    class='lifecycle-preview'>
     <div class='lifecycle-grid'></div>
 
     <div class='lifecycle-flow'>
@@ -128,63 +124,39 @@ const {number} = Astro.props;
     letter-spacing: 0.12em;
   }
 
-  .project-content h3 {
+  .project-details h3 {
     margin: 0 0 20px;
+
     font-size: clamp(1.8rem, 3vw, 2.8rem);
     letter-spacing: -0.03em;
   }
 
   .project-description {
     max-width: 650px;
+
     margin: 0 0 25px;
+
     color: #9ba7b5;
+
     line-height: 1.8;
-  }
-
-  .project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 30px;
-  }
-
-  .project-tags span {
-    padding: 6px 10px;
-    border: 1px solid rgb(91 206 250 / 20%);
-    border-radius: 3px;
-    color: var(--color-cyan);
-    font-size: 0.7rem;
-    letter-spacing: 0.06em;
-  }
-
-  .project-link {
-    color: var(--color-cyan);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .project-meta {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 25px;
-    color: var(--color-text-muted);
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
   }
 
   .lifecycle-preview {
     position: relative;
+
     grid-column: 1 / -1;
+
     min-height: 300px;
     margin-top: 40px;
+
     overflow: hidden;
+
     border: 1px solid rgb(91 206 250 / 12%);
+
     background:
       radial-gradient(circle at 50% 50%, rgb(74 144 226 / 8%), transparent 60%),
       var(--color-background);
+
     transition:
       border-color 0.6s ease,
       box-shadow 0.6s ease;
@@ -193,31 +165,42 @@ const {number} = Astro.props;
   .lifecycle-grid {
     position: absolute;
     inset: 0;
+
     background-image:
       linear-gradient(rgb(91 206 250 / 4%) 1px, transparent 1px),
       linear-gradient(90deg, rgb(91 206 250 / 4%) 1px, transparent 1px);
+
     background-size: 35px 35px;
+
     mask-image: radial-gradient(circle at center, black 10%, transparent 75%);
   }
 
   .lifecycle-flow {
     position: absolute;
     inset: 0;
+
     display: grid;
     grid-template-columns: repeat(9, 1fr);
+
     align-items: start;
+
     padding: 75px 55px 0;
   }
 
   .lifecycle-step {
     position: relative;
+
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+
     gap: 12px;
+
     min-width: 0;
+
     color: var(--color-text-muted);
+
     transition:
       color 0.5s ease,
       transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -230,10 +213,14 @@ const {number} = Astro.props;
   .lifecycle-dot {
     width: 12px;
     height: 12px;
+
     border: 1px solid rgb(91 206 250 / 35%);
     border-radius: 50%;
+
     background: var(--color-background);
+
     box-shadow: 0 0 8px rgb(91 206 250 / 5%);
+
     transition:
       background 0.35s ease,
       border-color 0.35s ease,
@@ -244,6 +231,7 @@ const {number} = Astro.props;
   .lifecycle-step.active .lifecycle-dot {
     background: var(--color-cyan);
     border-color: var(--color-cyan);
+
     box-shadow:
       0 0 12px rgb(91 206 250 / 60%),
       0 0 25px rgb(91 206 250 / 25%);
@@ -256,19 +244,24 @@ const {number} = Astro.props;
   @keyframes lifecycleIgnite {
     0% {
       transform: scale(1);
+
       box-shadow:
         0 0 8px rgb(91 206 250 / 20%),
         0 0 15px rgb(91 206 250 / 10%);
     }
+
     35% {
       transform: scale(1.65);
+
       box-shadow:
         0 0 16px var(--color-cyan),
         0 0 35px rgb(91 206 250 / 75%),
         0 0 55px rgb(91 206 250 / 35%);
     }
+
     100% {
       transform: scale(1.15);
+
       box-shadow:
         0 0 12px rgb(91 206 250 / 70%),
         0 0 25px rgb(91 206 250 / 30%);
@@ -283,27 +276,39 @@ const {number} = Astro.props;
 
   .lifecycle-connector {
     height: 1px;
+
     margin-top: 6px;
+
     background: rgb(91 206 250 / 15%);
   }
 
   .lifecycle-traveler {
     position: absolute;
+
     top: 0;
     left: 0;
+
     width: 10px;
     height: 10px;
+
     border-radius: 50%;
+
     background: var(--color-cyan);
+
     box-shadow:
       0 0 10px var(--color-cyan),
       0 0 24px rgb(91 206 250 / 60%);
+
     transform: translate(-50%, -50%);
+
     pointer-events: none;
+
     z-index: 5;
+
     transition:
       left 2.8s cubic-bezier(0.16, 1, 0.3, 1),
       top 0.15s ease;
+
     animation: lifecycleTravelerGlow 2s ease-in-out infinite;
   }
 
@@ -314,6 +319,7 @@ const {number} = Astro.props;
         0 0 8px var(--color-cyan),
         0 0 18px rgb(91 206 250 / 40%);
     }
+
     50% {
       box-shadow:
         0 0 14px var(--color-cyan),
@@ -323,20 +329,27 @@ const {number} = Astro.props;
 
   .lifecycle-stack {
     position: absolute;
+
     left: 25px;
     right: 25px;
     bottom: 64px;
+
     display: flex;
     flex-wrap: wrap;
+
     gap: 8px;
+
     max-width: none;
   }
 
   .lifecycle-stack span {
     padding: 5px 8px;
+
     border: 1px solid rgb(91 206 250 / 12%);
     border-radius: 2px;
+
     color: #718092;
+
     font-size: 0.55rem;
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -344,16 +357,21 @@ const {number} = Astro.props;
 
   .preview-info {
     position: absolute;
+
     left: 20px;
     bottom: 15px;
+
     display: flex;
     flex-direction: column;
+
     gap: 5px;
+
     z-index: 3;
   }
 
   .preview-label {
     color: var(--color-cyan);
+
     font-size: 0.65rem;
     font-weight: 700;
     letter-spacing: 0.15em;
@@ -361,14 +379,17 @@ const {number} = Astro.props;
 
   .preview-title {
     color: var(--color-text-muted);
+
     font-size: 0.6rem;
     font-weight: 500;
     letter-spacing: 0.12em;
+
     text-transform: uppercase;
   }
 
   :global(.project:hover) .lifecycle-preview {
     border-color: rgb(91 206 250 / 35%);
+
     box-shadow:
       inset 0 0 50px rgb(91 206 250 / 4%),
       0 0 30px rgb(91 206 250 / 5%);
@@ -380,6 +401,7 @@ const {number} = Astro.props;
 
   :global(.project:hover) .lifecycle-step .lifecycle-dot {
     border-color: rgb(91 206 250 / 55%);
+
     box-shadow: 0 0 15px rgb(91 206 250 / 15%);
   }
 
@@ -387,11 +409,14 @@ const {number} = Astro.props;
     .lifecycle-preview {
       min-height: 320px;
     }
+
     .lifecycle-stack {
       left: 25px;
       right: 25px;
       bottom: 64px;
+
       max-width: none;
+
       gap: 8px;
     }
   }
@@ -399,15 +424,20 @@ const {number} = Astro.props;
   @media (max-width: 600px) {
     .lifecycle-preview {
       min-height: 440px;
+
       margin-top: 30px;
     }
 
     .lifecycle-flow {
       inset: 0;
+
       display: grid;
+
       grid-template-columns: 1fr;
       grid-template-rows: repeat(9, auto);
+
       align-content: start;
+
       padding: 45px 40px 130px;
     }
 
@@ -416,7 +446,9 @@ const {number} = Astro.props;
       flex-direction: row;
       align-items: center;
       justify-content: flex-start;
+
       gap: 14px;
+
       min-width: 0;
     }
 
@@ -428,7 +460,9 @@ const {number} = Astro.props;
     .lifecycle-connector {
       width: 1px;
       height: 30px;
+
       margin: 0 0 0 6px;
+
       background: rgb(91 206 250 / 15%);
     }
 
@@ -442,12 +476,15 @@ const {number} = Astro.props;
       left: 20px;
       right: 20px;
       bottom: 64px;
+
       max-width: none;
+
       gap: 6px;
     }
 
     .lifecycle-stack span {
       padding: 5px 7px;
+
       font-size: 0.5rem;
     }
   }
@@ -462,11 +499,14 @@ const {number} = Astro.props;
 
 <script>
   const lifecycleFlow = document.querySelector<HTMLElement>('.lifecycle-flow');
+
   const lifecycleSteps =
     document.querySelectorAll<HTMLElement>('.lifecycle-step');
+
   const lifecycleTraveler = document.querySelector<HTMLElement>(
     '.lifecycle-traveler',
   );
+
   const lifecyclePreview =
     document.querySelector<HTMLElement>('.lifecycle-preview');
 
@@ -537,6 +577,7 @@ const {number} = Astro.props;
 
     function moveTravelerToStep(index: number) {
       const position = getStepPosition(index);
+
       traveler.style.left = `${position.x}px`;
       traveler.style.top = `${position.y}px`;
     }
@@ -557,7 +598,9 @@ const {number} = Astro.props;
       }
 
       targetStep.classList.remove('ignite');
+
       void targetStep.offsetWidth;
+
       targetStep.classList.add('ignite');
 
       igniteTimer = window.setTimeout(() => {
@@ -572,6 +615,7 @@ const {number} = Astro.props;
       }
 
       const nextStep = (currentStep + 1) % steps.length;
+
       moveTravelerToStep(nextStep);
 
       travelTimer = window.setTimeout(() => {
@@ -580,11 +624,13 @@ const {number} = Astro.props;
         }
 
         activateStep(nextStep);
+
         currentStep = nextStep;
         travelTimer = null;
 
         pauseTimer = window.setTimeout(() => {
           pauseTimer = null;
+
           travelToNextStep();
         }, pauseDuration);
       }, travelDuration);
@@ -592,6 +638,7 @@ const {number} = Astro.props;
 
     function startLifecycle() {
       clearLifecycleTimers();
+
       activateStep(currentStep);
       moveTravelerToStep(currentStep);
 
@@ -601,6 +648,7 @@ const {number} = Astro.props;
 
       pauseTimer = window.setTimeout(() => {
         pauseTimer = null;
+
         travelToNextStep();
       }, pauseDuration);
     }

@@ -10,8 +10,15 @@ const {number} = Astro.props;
 
 <ProjectCard
   number={number}
-  variant='project-browser'>
-  <div class='project-content'>
+  variant='project-browser'
+  tags={['Squarespace', 'JavaScript', 'HTML/CSS', 'Payments', 'Scheduling']}
+  type='Web Development'
+  year='2025'
+  context='Client Project'
+  href='https://www.cowpercottagewellness.com.au/'>
+  <div
+    slot='content'
+    class='project-details'>
     <h3>Cowper Cottage Wellness</h3>
 
     <p class='project-description'>
@@ -21,38 +28,21 @@ const {number} = Astro.props;
       project focused on creating a calm, professional experience that works
       clearly across desktop and mobile devices.
     </p>
+
     <p class='project-role'>
       <span>ROLE</span>
       Website development · UX structure · Payments & scheduling integration
     </p>
-    <div class='project-tags'>
-      <span>Squarespace</span>
-      <span>JavaScript</span>
-      <span>HTML/CSS</span>
-      <span>Payments</span>
-      <span>Scheduling</span>
-    </div>
-
-    <div class='project-meta'>
-      <span>WEB DEVELOPMENT</span>
-      <span>2025</span>
-      <span>CLIENT PROJECT</span>
-    </div>
-
-    <a
-      href='https://www.cowpercottagewellness.com.au/'
-      class='project-link'
-      target='_blank'
-      rel='noopener noreferrer'>
-      View project →
-    </a>
   </div>
 
-  <div class='browser-preview'>
+  <div
+    slot='preview'
+    class='browser-preview'>
     <div class='browser-bar'>
       <span></span>
       <span></span>
       <span></span>
+
       <div class='browser-address'>cowpercottagewellness.com.au</div>
     </div>
 
@@ -93,6 +83,7 @@ const {number} = Astro.props;
             class='browser-card-icon wellness-mark'
             aria-hidden='true'>
           </span>
+
           <span class='browser-card-label'>Wellness</span>
         </div>
 
@@ -101,6 +92,7 @@ const {number} = Astro.props;
             class='browser-card-icon booking-mark'
             aria-hidden='true'>
           </span>
+
           <span class='browser-card-label'>Booking</span>
         </div>
 
@@ -109,12 +101,14 @@ const {number} = Astro.props;
             class='browser-card-icon payment-mark'
             aria-hidden='true'>
           </span>
+
           <span class='browser-card-label'>Payment</span>
         </div>
       </div>
 
       <div class='preview-info'>
         <span class='preview-label'>PROJECT 02</span>
+
         <span class='preview-title'>COWPER COTTAGE WELLNESS</span>
       </div>
     </div>
@@ -156,22 +150,6 @@ const {number} = Astro.props;
     line-height: 1.8;
   }
 
-  .project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 30px;
-  }
-
-  .project-tags span {
-    padding: 6px 10px;
-    border: 1px solid rgb(91 206 250 / 20%);
-    border-radius: 3px;
-    color: var(--color-cyan);
-    font-size: 0.7rem;
-    letter-spacing: 0.06em;
-  }
-
   .project-link {
     color: var(--color-cyan);
     font-size: 0.75rem;
@@ -180,15 +158,6 @@ const {number} = Astro.props;
     text-transform: uppercase;
   }
 
-  .project-meta {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 25px;
-    color: var(--color-text-muted);
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-  }
   .browser-preview {
     position: relative;
     grid-column: 1 / -1;
@@ -303,6 +272,7 @@ const {number} = Astro.props;
     from {
       transform: translate3d(0, 0, 0);
     }
+
     to {
       transform: translate3d(-50%, 0, 0);
     }
@@ -494,18 +464,23 @@ const {number} = Astro.props;
     .browser-card {
       animation: browserCardFloat 4.5s ease-in-out infinite;
     }
+
     .browser-card:nth-child(2) {
       animation-delay: 0.7s;
     }
+
     .browser-card:nth-child(3) {
       animation-delay: 1.4s;
     }
+
     .browser-card-icon {
       animation: browserIconGlow 4.5s ease-in-out infinite;
     }
+
     .browser-card:nth-child(2) .browser-card-icon {
       animation-delay: 0.7s;
     }
+
     .browser-card:nth-child(3) .browser-card-icon {
       animation-delay: 1.4s;
     }
@@ -517,6 +492,7 @@ const {number} = Astro.props;
       transform: translateY(0);
       border-color: rgb(91 206 250 / 22%);
     }
+
     50% {
       transform: translateY(-3px);
       border-color: rgb(91 206 250 / 38%);
@@ -528,6 +504,7 @@ const {number} = Astro.props;
     100% {
       filter: none;
     }
+
     50% {
       filter: drop-shadow(0 0 5px rgb(91 206 250 / 45%));
     }
@@ -537,6 +514,7 @@ const {number} = Astro.props;
     .heartbeat-track {
       animation-duration: 10.5s;
     }
+
     .heartbeat-svg {
       height: 66px;
     }
@@ -546,12 +524,15 @@ const {number} = Astro.props;
     .browser-screen {
       padding: 34px 28px 90px;
     }
+
     .browser-columns {
       grid-template-columns: 1fr;
     }
+
     .heartbeat-track {
       animation-duration: 11s;
     }
+
     .heartbeat-svg {
       height: 60px;
     }

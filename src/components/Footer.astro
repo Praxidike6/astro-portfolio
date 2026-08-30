@@ -7,7 +7,7 @@ const year = new Date().getFullYear();
 <footer class='footer'>
   <div class='footer-inner'>
     <p>
-      © {new Date().getFullYear()} Stuart McDonnell
+      © {year} Stuart McDonnell
     </p>
 
     <p>Built with Astro</p>
@@ -31,12 +31,15 @@ const year = new Date().getFullYear();
 
   .footer-inner {
     max-width: var(--content-width);
+
     margin: 0 auto;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 30px;
+    flex-wrap: wrap;
+
+    gap: 20px 30px;
   }
 
   .footer p,
@@ -46,22 +49,63 @@ const year = new Date().getFullYear();
     color: #9aa6b2;
 
     font-size: 0.7rem;
+    line-height: 1.5;
     letter-spacing: 0.05em;
   }
 
   .back-to-top {
-    transition: color 0.25s ease;
+    white-space: nowrap;
+
+    transition:
+      color 0.25s ease,
+      transform 0.25s ease;
   }
 
   .back-to-top:hover {
     color: var(--color-cyan);
+
+    transform: translateY(-2px);
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 800px) {
+    .footer {
+      padding: 26px var(--page-padding) 34px;
+    }
+
+    .footer-inner {
+      justify-content: flex-start;
+
+      gap: 16px 24px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .footer {
+      padding: 26px var(--page-padding) 32px;
+    }
+
     .footer-inner {
       flex-direction: column;
       align-items: flex-start;
-      gap: 15px;
+
+      gap: 14px;
+    }
+
+    .back-to-top {
+      display: inline-flex;
+      align-items: center;
+
+      min-height: 44px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .back-to-top {
+      transition: none;
+    }
+
+    .back-to-top:hover {
+      transform: none;
     }
   }
 </style>
