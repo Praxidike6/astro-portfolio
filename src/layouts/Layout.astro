@@ -1,9 +1,9 @@
 ---
-
 import '@fontsource-variable/plus-jakarta-sans';
 import '@fontsource-variable/space-grotesk';
 
 import '../styles/global.css';
+
 import Header from '../components/Header.astro';
 
 interface Props {
@@ -20,19 +20,29 @@ const {
 } = Astro.props;
 
 const canonicalURL = Astro.url;
+
 const socialImageURL = new URL(image, Astro.site);
+
+const baseURL = import.meta.env.BASE_URL;
 
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'Person',
+
   name: 'Stuart McDonnell',
+
   url: 'https://www.usethefalseluke.com',
+
   jobTitle: 'Web Developer, Designer & Technologist',
+
   description,
+
   image: socialImageURL.toString(),
+
   sameAs: [
     'https://www.linkedin.com/in/stuart-mcdonnell-762955166',
   ],
+
   knowsAbout: [
     'Web Development',
     'JavaScript',
@@ -47,6 +57,7 @@ const structuredData = {
 ---
 
 <!doctype html>
+
 <html lang='en'>
   <head>
     <meta charset='UTF-8' />
@@ -142,6 +153,8 @@ const structuredData = {
       content='Stuart McDonnell — Web Developer, Designer and Technologist'
     />
 
+    <!-- Browser theme -->
+
     <meta
       name='theme-color'
       content='#05070b'
@@ -150,28 +163,58 @@ const structuredData = {
     <!-- Favicons -->
 
     <link
-      rel='icon'
-      type='image/svg+xml'
-      href={`${import.meta.env.BASE_URL}favicon.svg`}
-    />
+  rel='icon'
+  type='image/svg+xml'
+  href={`${baseURL}favicon.svg?v=2`}
+/>
+
+<link
+  rel='icon'
+  type='image/png'
+  sizes='32x32'
+  href={`${baseURL}favicon-32x32.png?v=2`}
+/>
+
+<link
+  rel='icon'
+  type='image/png'
+  sizes='16x16'
+  href={`${baseURL}favicon-16x16.png?v=2`}
+/>
+
+<link
+  rel='alternate icon'
+  type='image/x-icon'
+  href={`${baseURL}favicon.ico?v=2`}
+/>
+
+<link
+  rel='apple-touch-icon'
+  sizes='180x180'
+  href={`${baseURL}apple-touch-icon.png?v=2`}
+/>
 
     <link
-      rel='alternate icon'
-      href={`${import.meta.env.BASE_URL}favicon.ico`}
+      rel='manifest'
+      href={`${baseURL}site.webmanifest`}
     />
 
     <!-- Structured data -->
 
     <script
       type='application/ld+json'
-      set:html={JSON.stringify(structuredData)}>
+      set:html={JSON.stringify(structuredData)}
+    >
     </script>
   </head>
 
   <body id='top'>
+    <a href="#main-content" class="skip-link">
+  Skip to main content
+</a>
     <Header />
 
-    <main class='site-main'>
+    <main id='main-content' class='site-main'>
       <slot />
     </main>
 
@@ -189,6 +232,7 @@ const structuredData = {
                 if (!entry.isIntersecting) return;
 
                 entry.target.classList.add('visible');
+
                 observer.unobserve(entry.target);
               });
             },
@@ -206,7 +250,8 @@ const structuredData = {
     <script
       data-goatcounter='https://praxidike6.goatcounter.com/count'
       async
-      src='https://gc.zgo.at/count.js'>
+      src='https://gc.zgo.at/count.js'
+    >
     </script>
   </body>
 </html>

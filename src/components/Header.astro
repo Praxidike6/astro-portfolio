@@ -4,10 +4,12 @@
     aria-label='Primary navigation'>
     <a
       class='logo'
-      href='#top'
+      href='/'
+      data-scroll='top'
       aria-label='Back to top'>
       STUART McDONNELL
     </a>
+
     <button
       class='menu-toggle'
       aria-label='Toggle navigation'
@@ -16,12 +18,33 @@
       <span></span>
       <span></span>
     </button>
+
     <div class='nav-links'>
-      <a href='#about'>ABOUT</a>
-      <a href='#skills'>SKILLS</a>
-      <a href='#work'>WORK</a>
-      <a href='#experience'>EXPERIENCE</a>
-      <a href='#contact'>CONTACT</a>
+      <a
+        href='/'
+        data-scroll='about'>
+        ABOUT
+      </a>
+      <a
+        href='/'
+        data-scroll='skills'>
+        SKILLS
+      </a>
+      <a
+        href='/'
+        data-scroll='work'>
+        WORK
+      </a>
+      <a
+        href='/'
+        data-scroll='experience'>
+        EXPERIENCE
+      </a>
+      <a
+        href='/'
+        data-scroll='contact'>
+        CONTACT
+      </a>
     </div>
   </nav>
 </header>
@@ -111,6 +134,14 @@
   }
 
   .nav-links a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  .nav-links a.active {
+    color: var(--color-cyan);
+  }
+
+  .nav-links a.active::after {
     transform: scaleX(1);
     transform-origin: left;
   }
@@ -229,8 +260,74 @@
   }
 </style>
 <script>
-  const menuToggle = document.querySelector('.menu-toggle');
-  const mobileNav = document.querySelector('.nav-links');
+  const menuToggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+
+  const mobileNav = document.querySelector<HTMLElement>('.nav-links');
+
+  const scrollLinks =
+    document.querySelectorAll<HTMLAnchorElement>('[data-scroll]');
+
+  const sectionLinks = document.querySelectorAll<HTMLAnchorElement>(
+    '.nav-links [data-scroll]',
+  );
+
+  /*
+   * --------------------------------
+   * Smooth navigation
+   * --------------------------------
+   */
+
+  scrollLinks.forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+
+      const targetId = link.dataset.scroll;
+
+      if (!targetId) return;
+
+      if (targetId === 'top') {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      } else {
+        const target = document.getElementById(targetId);
+
+        if (!target) return;
+
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      }
+
+      /*
+       * Keep the browser URL clean.
+       */
+      history.replaceState(
+        null,
+        '',
+        `${window.location.pathname}${window.location.search}`,
+      );
+
+      /*
+       * Close mobile navigation.
+       */
+      if (mobileNav && menuToggle) {
+        mobileNav.classList.remove('open');
+
+        menuToggle.classList.remove('open');
+
+        menuToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+
+  /*
+   * --------------------------------
+   * Mobile navigation
+   * --------------------------------
+   */
 
   if (menuToggle && mobileNav) {
     menuToggle.addEventListener('click', () => {
@@ -240,14 +337,130 @@
 
       menuToggle.setAttribute('aria-expanded', String(isOpen));
     });
+  }
 
-    mobileNav.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => {
-        mobileNav.classList.remove('open');
-        menuToggle.classList.remove('open');
+  /*
+   * --------------------------------
+   * Active navigation highlighting
+   * --------------------------------
+   */
 
-        menuToggle.setAttribute('aria-expanded', 'false');
-      });
+  function setActiveLink(sectionId: string | null) {
+    sectionLinks.forEach((link) => {
+      const isActive = link.dataset.scroll === sectionId;
+
+      link.classList.toggle('active', isActive);
+
+      if (isActive) {
+        link.setAttribute('aria-current', 'location');
+      } else {
+        link.removeAttribute('aria-current');
+      }
     });
+  }
+
+  /*
+   * The IDs such as "about" are currently
+   * attached to section headings.
+   *
+   * We find each ID and then observe its
+   * containing <section>, rather than only
+   * observing the heading.
+   */
+
+  const sections = Array.from(sectionLinks)
+    .map((link) => {
+      const id = link.dataset.scroll;
+
+      if (!id) return null;
+
+      const target = document.getElementById(id);
+
+      const section = target?.closest('section');
+
+      if (!section) return null;
+
+      return {
+        id,
+        section,
+      };
+    })
+    .filter(
+      (
+        item,
+      ): item is {
+        id: string;
+        section: HTMLElement;
+      } => item !== null,
+    );
+
+  if (sections.length) {
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
+          }
+
+          const current = sections.find(
+            ({section}) => section === entry.target,
+          );
+
+          if (!current) return;
+
+          setActiveLink(current.id);
+        });
+      },
+      {
+        /*
+         * This creates an invisible horizontal
+         * detection zone through the middle
+         * portion of the viewport.
+         */
+        rootMargin: '-35% 0px -55% 0px',
+
+        threshold: 0,
+      },
+    );
+
+    sections.forEach(({section}) => {
+      sectionObserver.observe(section);
+    });
+  }
+
+  /*
+   * Clear the active navigation while
+   * the visitor is in the Hero area.
+   */
+
+  function checkHeroPosition() {
+    const firstSection = sections[0]?.section;
+
+    if (!firstSection) return;
+
+    const firstSectionTop = firstSection.getBoundingClientRect().top;
+
+    if (firstSectionTop > window.innerHeight * 0.5) {
+      setActiveLink(null);
+    }
+  }
+
+  window.addEventListener('scroll', checkHeroPosition, {
+    passive: true,
+  });
+
+  checkHeroPosition();
+
+  /*
+   * Remove any old hash if somebody loads
+   * an older bookmarked URL such as #about.
+   */
+
+  if (window.location.hash) {
+    history.replaceState(
+      null,
+      '',
+      `${window.location.pathname}${window.location.search}`,
+    );
   }
 </script>
